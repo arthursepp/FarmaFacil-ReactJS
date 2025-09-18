@@ -23,7 +23,8 @@ export const ReturnButton = () => {
                 border-blue-500 
                 rounded-2xl 
                 p-3 
-                cursor-pointer                 
+                cursor-pointer
+                w-35
             "
         >
             <FontAwesomeIcon icon={faArrowLeft} color={blue} />
@@ -32,11 +33,11 @@ export const ReturnButton = () => {
     )
 }
 
-export const PrimaryButton = ({ text, link, url, ...props }) => {
+export const PrimaryButton = ({ text, link, url, classes, ...props }) => {
     if (link === true) {
         return (
             <a href={url} {...props}
-                className="
+                className={`
                 bg-blue-500 
                 text-white 
                 p-3
@@ -44,7 +45,8 @@ export const PrimaryButton = ({ text, link, url, ...props }) => {
                 rounded-xl
                 mt-2
                 hover:bg-blue-600
-            "
+                ${classes}
+            `}
             >
                 <span className="text-xl">
                     {text}
@@ -54,7 +56,7 @@ export const PrimaryButton = ({ text, link, url, ...props }) => {
     } else {
         return (
             <button {...props}
-                className="
+                className={`
                 bg-blue-500 
                 text-white 
                 p-3
@@ -62,7 +64,8 @@ export const PrimaryButton = ({ text, link, url, ...props }) => {
                 rounded-xl
                 mt-2
                 hover:bg-blue-600
-            "
+                ${classes}
+            `}
             >
                 <span className="text-xl">
                     {text}

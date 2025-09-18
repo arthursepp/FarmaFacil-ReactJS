@@ -17,4 +17,24 @@ function Form({ children, ...props }) {
     )
 }
 
+export const NewProdutoForm = ({ children, classes, ...props}) => {
+    return (
+        <form type='post' {...props}>
+            <div className={`
+                border-2
+                border-blue-500
+                rounded-xl
+                p-5
+                flex
+                flex-col
+                items-center
+                justify-center
+                ${classes}
+            `}>
+                {children}
+            </div>
+        </form>
+    )
+}
+
 export default Form

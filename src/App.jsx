@@ -1,9 +1,10 @@
 import './App.css'
-import Home from './Pages/Home.jsx'
+import HomeClientes from './Pages/HomeClientes.jsx'
 import CadastroClientes from './Pages/auth/Clientes/CadastroClientes.jsx'
 import LoginClientes from './Pages/auth/Clientes/LoginClientes.jsx'
 import CadastroLojas from './Pages/auth/Lojas/CadastroLojas.jsx'
 import LoginLojas from './Pages/auth/Lojas/LoginLojas.jsx'
+import HomeLojas from './Pages/Lojas/HomeLojas.jsx'
 import { Routes, Route } from 'react-router-dom'
 import Landing from './Pages/Landing.jsx'
 
@@ -14,9 +15,10 @@ const App = () => {
         <Route path='/' element={<Landing />} />
         <Route path='/login/clientes' element={<LoginClientes />} />
         <Route path='/cadastro/clientes' element={<CadastroClientes />} />
-        <Route path='/login/lojas' element={<CadastroLojas />} />
+        <Route path='/login/lojas' element={<LoginLojas />} />
         <Route path='/cadastro/lojas' element={<CadastroLojas />} />
-        <Route path='/home' element={<Home />} />
+        <Route path='/home/clientes' element={<HomeClientes />} />
+        <Route path='/home/lojas' element={<HomeLojas />} />
       </Routes>
     </div>
   )

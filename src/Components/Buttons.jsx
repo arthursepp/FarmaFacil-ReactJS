@@ -14,7 +14,7 @@ export const ReturnButton = () => {
     }
 
     return (
-        <button onClick={voltar}         
+        <button onClick={voltar}
             className="
                 flex 
                 gap-3 
@@ -32,10 +32,11 @@ export const ReturnButton = () => {
     )
 }
 
-export const PrimaryButton = ({ text, ...props }) => {
-    return (
-        <button {...props} 
-            className="
+export const PrimaryButton = ({ text, link, url, ...props }) => {
+    if (link === true) {
+        return (
+            <a href={url} {...props}
+                className="
                 bg-blue-500 
                 text-white 
                 p-3
@@ -45,9 +46,73 @@ export const PrimaryButton = ({ text, ...props }) => {
                 hover:bg-blue-600
             "
             >
-            <span className="text-xl">
-                {text}
-            </span>
-        </button>
-    )
+                <span className="text-xl">
+                    {text}
+                </span>
+            </a>
+        )
+    } else {
+        return (
+            <button {...props}
+                className="
+                bg-blue-500 
+                text-white 
+                p-3
+                cursor-pointer
+                rounded-xl
+                mt-2
+                hover:bg-blue-600
+            "
+            >
+                <span className="text-xl">
+                    {text}
+                </span>
+            </button>
+        )
+    }
+}
+
+export const SecondaryButton = ({ text, link, url, classes, ...props }) => {
+    if (link === true) {
+        return (
+            <a href={url} {...props}
+                className={`
+                border-2
+                border-blue-500
+                text-blue-500
+                p-3
+                cursor-pointer
+                rounded-xl
+                mt-2
+                hover:bg-blue-500
+                hover:text-white
+                ${classes}
+            `}
+            >
+                <span className="text-xl">
+                    {text}
+                </span>
+            </a>
+        )
+    } else {
+        return (
+            <button {...props}
+                className={`
+                border-2
+                border-blue-500
+                text-blue-500
+                p-3
+                cursor-pointer
+                rounded-xl
+                mt-2
+                hover:bg-blue-600
+                ${classes}
+            `}
+            >
+                <span className="text-xl">
+                    {text}
+                </span>
+            </button>
+        )
+    }
 }

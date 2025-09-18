@@ -18,7 +18,7 @@ function Landing() {
                 </a>
             </div>
 
-            <a href="/login/lojas"
+            <a href="/cadastro/lojas"
                 className='
                     mt-10 
                     text-xl 

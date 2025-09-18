@@ -14,7 +14,7 @@ function Footer({ type, classes, children, ...props }) {
                     ${classes}
                     flex w-full border-t-1 border-gray-400 fixed
                     text-center items-center justify-around left-0 bottom-0
-                    text-slate-500 p-5
+                    text-slate-500 p-3 bg-white
                 `}
             >
                 <IconTabLink
@@ -42,7 +42,7 @@ function Footer({ type, classes, children, ...props }) {
         )
     } else {
         return (
-            <footer {...props} className={`${classes} flex flex-1 w-full bg-blue-500`}>
+            <footer {...props} className={`${classes} flex flex-1 w-full bg-white`}>
                 {children}
             </footer>
         )

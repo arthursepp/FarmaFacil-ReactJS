@@ -44,6 +44,7 @@ export const PrimaryButton = ({ text, link, url, classes, ...props }) => {
                 cursor-pointer
                 rounded-xl
                 mt-2
+                text-center
                 hover:bg-blue-600
                 ${classes}
             `}

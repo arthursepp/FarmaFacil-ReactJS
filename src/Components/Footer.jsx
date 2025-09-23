@@ -14,7 +14,7 @@ function Footer({ type, classes, children, ...props }) {
                     ${classes}
                     flex w-full border-t-1 border-gray-400 fixed
                     text-center items-center justify-around left-0 bottom-0
-                    text-slate-500 p-3 bg-white
+                    text-slate-500 p-3 bg-white h-20 mt-20
                 `}
             >
                 <IconTabLink
@@ -27,16 +27,16 @@ function Footer({ type, classes, children, ...props }) {
                 <IconTabLink
                     icon={faClipboardCheck}
                     text={'Pedidos'}
-                    url={'/pedidos'}
-                    iconClasses={`text-2xl ${currentRoute === '/pedidos' ? 'text-blue-500' : ''}`}
-                    classes={currentRoute === '/pedidos' ? 'text-blue-500' : ''}
+                    url={'/pedidos/lojas'}
+                    iconClasses={`text-2xl ${currentRoute === '/pedidos/lojas' ? 'text-blue-500' : ''}`}
+                    classes={currentRoute === '/pedidos/lojas' ? 'text-blue-500' : ''}
                 />
                 <IconTabLink
                     icon={faGear}
                     text={'Configurações'}
-                    url={'/configuracoes'}
-                    iconClasses={`text-2xl ${currentRoute === '/configuracoes' ? 'text-blue-500' : ''}`}
-                    classes={currentRoute === '/configuracoes' ? 'text-blue-500' : ''}
+                    url={'/configuracoes/lojas'}
+                    iconClasses={`text-2xl ${currentRoute === '/configuracoes/lojas' ? 'text-blue-500' : ''}`}
+                    classes={currentRoute === '/configuracoes/lojas' ? 'text-blue-500' : ''}
                 />
             </footer>
         )

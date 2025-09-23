@@ -1,4 +1,5 @@
 import './App.css'
+import Landing from './Pages/Landing.jsx'
 import HomeClientes from './Pages/HomeClientes.jsx'
 import CadastroClientes from './Pages/auth/Clientes/CadastroClientes.jsx'
 import LoginClientes from './Pages/auth/Clientes/LoginClientes.jsx'
@@ -8,9 +9,10 @@ import LoginLojas from './Pages/auth/Lojas/LoginLojas.jsx'
 import HomeLojas from './Pages/Lojas/HomeLojas.jsx'
 
 import AdicionarProduto from './Pages/Lojas/AdicionarProduto.jsx'
+import PedidosLoja from './Pages/Lojas/Pedidos/PedidosLoja'
+import ConfiguracoesLoja from './Pages/Lojas/ConfiguracoesLoja.jsx'
 
 import { Routes, Route } from 'react-router-dom'
-import Landing from './Pages/Landing.jsx'
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
         <Route path='/home/lojas' element={<HomeLojas />} />
 
         <Route path='/adicionar-produto' element={<AdicionarProduto />} />
+        <Route path='/pedidos/lojas' element={<PedidosLoja />} />
+        <Route path='/configuracoes/lojas' element={<ConfiguracoesLoja />} />
       </Routes>
     </div>
   )

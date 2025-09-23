@@ -25,6 +25,7 @@ export const ReturnButton = () => {
                 p-3 
                 cursor-pointer
                 w-35
+                hover:bg-slate-200
             "
         >
             <FontAwesomeIcon icon={faArrowLeft} color={blue} />
@@ -33,7 +34,7 @@ export const ReturnButton = () => {
     )
 }
 
-export const PrimaryButton = ({ text, link, url, classes, ...props }) => {
+export const PrimaryButton = ({ children, link, url, classes, ...props }) => {
     if (link === true) {
         return (
             <a href={url} {...props}
@@ -49,9 +50,7 @@ export const PrimaryButton = ({ text, link, url, classes, ...props }) => {
                 ${classes}
             `}
             >
-                <span className="text-xl">
-                    {text}
-                </span>
+                {children}
             </a>
         )
     } else {
@@ -68,15 +67,56 @@ export const PrimaryButton = ({ text, link, url, classes, ...props }) => {
                 ${classes}
             `}
             >
-                <span className="text-xl">
-                    {text}
-                </span>
+                {children}
             </button>
         )
     }
 }
 
-export const SecondaryButton = ({ text, link, url, classes, ...props }) => {
+export const PrimaryDangerButton = ({ children, link, url, classes, ...props }) => {
+    if (link === true) {
+        return (
+            <a href={url} {...props}
+                className={`
+                bg-red-500 
+                text-white 
+                p-3
+                cursor-pointer
+                rounded-xl
+                mt-2
+                text-center
+                hover:bg-red-600
+                ${classes}
+            `}
+            >
+
+                {children}
+
+            </a>
+        )
+    } else {
+        return (
+            <button {...props}
+                className={`
+                bg-red-500 
+                text-white 
+                p-3
+                cursor-pointer
+                rounded-xl
+                mt-2
+                hover:bg-red-600
+                ${classes}
+            `}
+            >
+
+                {children}
+
+            </button>
+        )
+    }
+}
+
+export const SecondaryButton = ({ children, link, url, classes, ...props }) => {
     if (link === true) {
         return (
             <a href={url} {...props}
@@ -93,9 +133,7 @@ export const SecondaryButton = ({ text, link, url, classes, ...props }) => {
                 ${classes}
             `}
             >
-                <span className="text-xl">
-                    {text}
-                </span>
+                {children}
             </a>
         )
     } else {
@@ -113,9 +151,49 @@ export const SecondaryButton = ({ text, link, url, classes, ...props }) => {
                 ${classes}
             `}
             >
-                <span className="text-xl">
-                    {text}
-                </span>
+                {children}
+            </button>
+        )
+    }
+}
+
+export const SecondaryDangerButton = ({ link, url, classes, children, ...props }) => {
+    if (link === true) {
+        return (
+            <a href={url} {...props}
+                className={`
+                border-2
+                border-red-500
+                text-red-500
+                p-3
+                cursor-pointer
+                rounded-xl
+                mt-2
+                hover:bg-red-500
+                hover:text-white
+                ${classes}
+            `}
+            >
+                {children}
+            </a>
+        )
+    } else {
+        return (
+            <button {...props}
+                className={`
+                border-2
+                border-red-500
+                text-red-500
+                p-3
+                cursor-pointer
+                rounded-xl
+                mt-2
+                hover:bg-red-500
+                hover:text-white
+                ${classes}
+            `}
+            >
+                {children}
             </button>
         )
     }

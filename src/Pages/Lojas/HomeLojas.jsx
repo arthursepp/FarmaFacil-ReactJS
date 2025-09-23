@@ -11,15 +11,16 @@ function HomeLojas() {
         <div className="flex flex-col items-center justify-center">
           <SecondaryButton
             link={true}
-            url='/adicionar-produto'
-            text={'Adicionar novo produto'}
+            url='/adicionar-produto'            
             classes='
               w-[50%] 
               text-center 
               duration-300 
               ease-in-out
             '
-          />
+          >
+            <span className="text-xl">Adicionar novo produto</span>
+          </SecondaryButton>
         </div>
 
         <div className="flex flex-col items-center justify-center mt-5 gap-5 overflow-auto">
@@ -33,7 +34,9 @@ function HomeLojas() {
               <span>Produto com menos unidades:</span>
               <span>10</span>
             </div>
-            <PrimaryButton link={true} url='#' text={'Gerencie seu estoque'} />
+            <PrimaryButton link={true} url='#'>
+              <span className="text-xl">Gerencie seu estoque</span>
+            </PrimaryButton>
           </CardContainer>
 
           <CardContainer classes={'gap-5 w-[40%]'}>
@@ -42,11 +45,14 @@ function HomeLojas() {
               <span>Pedidos concluídos:</span>
               <span>10</span>
             </div>
+
             <div className="flex items-center gap-2">
               <span>Pedidos pendentes:</span>
               <span>10</span>
             </div>
-            <PrimaryButton link={true} url='#' text={'Gerenciar pedidos'} />
+            <PrimaryButton link={true} url='#'>
+              <span className="text-xl">Gerencie seus pedidos</span>
+            </PrimaryButton>
           </CardContainer>
 
         </div>

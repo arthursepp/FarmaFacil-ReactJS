@@ -7,9 +7,10 @@ import LoginClientes from './Pages/auth/Clientes/LoginClientes.jsx'
 import CadastroLojas from './Pages/auth/Lojas/CadastroLojas.jsx'
 import LoginLojas from './Pages/auth/Lojas/LoginLojas.jsx'
 import HomeLojas from './Pages/Lojas/HomeLojas.jsx'
-
-import AdicionarProduto from './Pages/Lojas/AdicionarProduto.jsx'
+import Estoque from './Pages/Lojas/Estoque.jsx'
 import PedidosLoja from './Pages/Lojas/Pedidos/PedidosLoja'
+import AdicionarProduto from './Pages/Lojas/AdicionarProduto.jsx'
+
 import ConfiguracoesLoja from './Pages/Lojas/ConfiguracoesLoja.jsx'
 import EditarLoja from './Pages/Lojas/EditarLoja.jsx'
 
@@ -27,9 +28,10 @@ const App = () => {
         <Route path='/login/lojas' element={<LoginLojas />} />
         <Route path='/cadastro/lojas' element={<CadastroLojas />} />
         <Route path='/home/lojas' element={<HomeLojas />} />
-
+        <Route path='/estoque' element={<Estoque />} />
         <Route path='/adicionar-produto' element={<AdicionarProduto />} />
         <Route path='/pedidos/lojas' element={<PedidosLoja />} />
+
         <Route path='/configuracoes/lojas' element={<ConfiguracoesLoja />} />
         <Route path='/editar/lojas' element={<EditarLoja />} />
       </Routes>

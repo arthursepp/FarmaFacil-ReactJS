@@ -34,7 +34,7 @@ function HomeLojas() {
               <span>Produto com menos unidades:</span>
               <span>10</span>
             </div>
-            <PrimaryButton link={true} url='#'>
+            <PrimaryButton link={true} url='/estoque'>
               <span className="text-xl">Gerencie seu estoque</span>
             </PrimaryButton>
           </CardContainer>

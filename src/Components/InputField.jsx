@@ -1,50 +1,27 @@
 
-function InputField({
-    id,
-    label,
-    type,
-    name,
-    inputClasses,
-    labelClasses,
-    placeholder,
-    ...props
-}) {
-    return (
-        <div className='w-full flex flex-col items-center gap-3'>
-            <label htmlFor={name} className={`text-left font-bold text-xl ${labelClasses}`}>
-                {label}
-            </label>
-            <input
-                type={type}
-                name={name}
-                id={id}
-                className={`                    
-                    rounded-xl
-                    border-2
-                    p-2
-                    border-blue-500
-                    outline-none
-                    ${inputClasses}
-                `}
-                placeholder={placeholder}
-                {...props}
-            />
-        </div>
-    )
+function InputField({label, labelClassName, inputClassName, inputName,...props}){
+  return (
+    <div className='flex flex-col gap-2'>
+      <label htmlFor={inputName} className={`${labelClassName}`}>
+        {label}
+      </label>
+      <input {...props} className={`${inputClassName}`} name={inputName} />
+    </div>
+  )
 }
 
 export const TextareaField = ({
     id,
     label,    
     name,
-    inputClasses,
-    labelClasses,
+    inputclassName,
+    labelclassName,
     placeholder,
     ...props
 }) => {
     return (
         <div className='w-full flex flex-col items-center gap-3'>
-            <label htmlFor={name} className={`text-left font-bold text-xl ${labelClasses}`}>
+            <label htmlFor={name} className={`text-left font-bold text-xl ${labelclassName}`}>
                 {label}
             </label>
             <textarea                
@@ -56,7 +33,7 @@ export const TextareaField = ({
                     p-2
                     border-blue-500
                     outline-none
-                    ${inputClasses}
+                    ${inputclassName}
                 `}
                 placeholder={placeholder}
                 {...props}

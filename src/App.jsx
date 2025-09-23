@@ -11,6 +11,7 @@ import HomeLojas from './Pages/Lojas/HomeLojas.jsx'
 import AdicionarProduto from './Pages/Lojas/AdicionarProduto.jsx'
 import PedidosLoja from './Pages/Lojas/Pedidos/PedidosLoja'
 import ConfiguracoesLoja from './Pages/Lojas/ConfiguracoesLoja.jsx'
+import EditarLoja from './Pages/Lojas/EditarLoja.jsx'
 
 import { Routes, Route } from 'react-router-dom'
 
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/adicionar-produto' element={<AdicionarProduto />} />
         <Route path='/pedidos/lojas' element={<PedidosLoja />} />
         <Route path='/configuracoes/lojas' element={<ConfiguracoesLoja />} />
+        <Route path='/editar/lojas' element={<EditarLoja />} />
       </Routes>
     </div>
   )

@@ -5,7 +5,6 @@ import { SecondaryText, TerciaryText } from '../../Components/Titles'
 import { faPencil, faSignOut, faTrash, faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-// ConfiguracoesLoja.jsx
 function ConfiguracoesLoja() {
   return (
     <div>
@@ -15,9 +14,8 @@ function ConfiguracoesLoja() {
           <FontAwesomeIcon icon={faGear} className='text-2xl' />
         </div>
 
-        {/* conteudo principal: rolável, com padding-bottom igual à altura do footer */}
         <div
-          className={`
+          className='
               border
               p-5
               border-gray-400
@@ -28,7 +26,7 @@ function ConfiguracoesLoja() {
               h-[70%]
               rounded-xl
               mt-5
-            `}
+            '
         >
           <div className='flex flex-col gap-5'>
 
@@ -40,7 +38,7 @@ function ConfiguracoesLoja() {
               <span>Complemento: N/A</span>
             </div>
 
-            <PrimaryButton classes={'w-[50%] mx-auto mt-10 flex items-center justify-center gap-5'}>
+            <PrimaryButton link={true} url={'/editar/lojas'} className={'w-[50%] mx-auto mt-10 flex items-center justify-center gap-5'}>
               <span className="text-xl">Editar informações</span>
               <FontAwesomeIcon icon={faPencil} />
             </PrimaryButton>
@@ -50,12 +48,12 @@ function ConfiguracoesLoja() {
           <hr className='border-1 border-gray-400' />
 
           <div className='flex flex-col gap-3 w-[50%] mx-auto '>
-            <SecondaryDangerButton classes={'flex items-center justify-center gap-5'}>
+            <SecondaryDangerButton className={'flex items-center justify-center gap-5'}>
               <span className='text-xl'>Sair</span>
               <FontAwesomeIcon icon={faSignOut} />
             </SecondaryDangerButton>
 
-            <PrimaryDangerButton classes={'flex items-center justify-center gap-5'}>
+            <PrimaryDangerButton className={'flex items-center justify-center gap-5'}>
               <span className="text-xl">Deletar conta</span>
               <FontAwesomeIcon icon={faTrash} />
             </PrimaryDangerButton>
@@ -63,7 +61,6 @@ function ConfiguracoesLoja() {
         </div>
       </GenericContainer>
 
-      {/* footer fixo */}
       <Footer type={'loja'} />
     </div>
   )

@@ -13,7 +13,7 @@ function PedidosLoja() {
         <div>
             <GenericContainer>
                 <ReturnButton />
-                <SecondaryText text='Seus pedidos' classes={'text-black my-4 text-center'} />
+                <SecondaryText text='Seus pedidos' className={'text-black my-4 text-center'} />
 
                 <div className="flex border-b-1 border-slate-300 mt-3">
                     <button

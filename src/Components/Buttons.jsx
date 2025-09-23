@@ -34,7 +34,7 @@ export const ReturnButton = () => {
     )
 }
 
-export const PrimaryButton = ({ children, link, url, classes, ...props }) => {
+export const PrimaryButton = ({ children, link, url, className, ...props }) => {
     if (link === true) {
         return (
             <a href={url} {...props}
@@ -47,7 +47,7 @@ export const PrimaryButton = ({ children, link, url, classes, ...props }) => {
                 mt-2
                 text-center
                 hover:bg-blue-600
-                ${classes}
+                ${className}
             `}
             >
                 {children}
@@ -64,7 +64,7 @@ export const PrimaryButton = ({ children, link, url, classes, ...props }) => {
                 rounded-xl
                 mt-2
                 hover:bg-blue-600
-                ${classes}
+                ${className}
             `}
             >
                 {children}
@@ -73,7 +73,7 @@ export const PrimaryButton = ({ children, link, url, classes, ...props }) => {
     }
 }
 
-export const PrimaryDangerButton = ({ children, link, url, classes, ...props }) => {
+export const PrimaryDangerButton = ({ children, link, url, className, ...props }) => {
     if (link === true) {
         return (
             <a href={url} {...props}
@@ -86,7 +86,7 @@ export const PrimaryDangerButton = ({ children, link, url, classes, ...props }) 
                 mt-2
                 text-center
                 hover:bg-red-600
-                ${classes}
+                ${className}
             `}
             >
 
@@ -105,7 +105,7 @@ export const PrimaryDangerButton = ({ children, link, url, classes, ...props }) 
                 rounded-xl
                 mt-2
                 hover:bg-red-600
-                ${classes}
+                ${className}
             `}
             >
 
@@ -116,7 +116,7 @@ export const PrimaryDangerButton = ({ children, link, url, classes, ...props }) 
     }
 }
 
-export const SecondaryButton = ({ children, link, url, classes, ...props }) => {
+export const SecondaryButton = ({ children, link, url, className, ...props }) => {
     if (link === true) {
         return (
             <a href={url} {...props}
@@ -130,7 +130,7 @@ export const SecondaryButton = ({ children, link, url, classes, ...props }) => {
                 mt-2
                 hover:bg-blue-500
                 hover:text-white
-                ${classes}
+                ${className}
             `}
             >
                 {children}
@@ -148,7 +148,7 @@ export const SecondaryButton = ({ children, link, url, classes, ...props }) => {
                 rounded-xl
                 mt-2
                 hover:bg-blue-600
-                ${classes}
+                ${className}
             `}
             >
                 {children}
@@ -157,7 +157,7 @@ export const SecondaryButton = ({ children, link, url, classes, ...props }) => {
     }
 }
 
-export const SecondaryDangerButton = ({ link, url, classes, children, ...props }) => {
+export const SecondaryDangerButton = ({ link, url, className, children, ...props }) => {
     if (link === true) {
         return (
             <a href={url} {...props}
@@ -171,7 +171,7 @@ export const SecondaryDangerButton = ({ link, url, classes, children, ...props }
                 mt-2
                 hover:bg-red-500
                 hover:text-white
-                ${classes}
+                ${className}
             `}
             >
                 {children}
@@ -190,7 +190,7 @@ export const SecondaryDangerButton = ({ link, url, classes, children, ...props }
                 mt-2
                 hover:bg-red-500
                 hover:text-white
-                ${classes}
+                ${className}
             `}
             >
                 {children}

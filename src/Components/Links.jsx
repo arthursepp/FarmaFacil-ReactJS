@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-export const IconTabLink = ({ text, url, icon, classes, iconClasses,...props }) => {
+export const IconTabLink = ({ text, url, icon, className, iconclassName,...props }) => {
     return (
         <a 
             href={url} 
             className={`
-                ${classes}
+                ${className}
                 flex
                 flex-col
                 items-center
@@ -13,7 +13,7 @@ export const IconTabLink = ({ text, url, icon, classes, iconClasses,...props }) 
             `} 
             {...props}
         >
-            <FontAwesomeIcon icon={icon} className={`${iconClasses}`}/>
+            <FontAwesomeIcon icon={icon} className={`${iconclassName}`}/>
             <span>{text}</span>
         </a>
     )

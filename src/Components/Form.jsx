@@ -17,7 +17,7 @@ function Form({ children, ...props }) {
     )
 }
 
-export const NewProdutoForm = ({ children, classes, ...props}) => {
+export const NewProdutoForm = ({ children, className, ...props}) => {
     return (
         <form type='post' {...props}>
             <div className={`
@@ -29,7 +29,7 @@ export const NewProdutoForm = ({ children, classes, ...props}) => {
                 flex-col
                 items-center
                 justify-center
-                ${classes}
+                ${className}
             `}>
                 {children}
             </div>

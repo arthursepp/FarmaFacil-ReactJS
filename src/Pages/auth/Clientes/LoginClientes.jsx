@@ -10,7 +10,7 @@ function LoginClientes() {
     <div>
       <NavbarNotSigned linkType={'cadastro'} />
       
-      <PrimaryText text='Login' classes='text-center mt-8' />
+      <PrimaryText text='Login' className='text-center mt-8' />
 
       <div className='flex items-center justify-center mt-10'>
         <Form action="">          

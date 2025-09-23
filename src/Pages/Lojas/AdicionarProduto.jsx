@@ -17,9 +17,9 @@ function AdicionarProduto() {
     return (
         <GenericContainer>
             <ReturnButton />
-            <SecondaryText text={'Adicionar produto'} classes={'mt-5'} />
+            <SecondaryText text={'Adicionar produto'} className={'mt-5'} />
             
-            <NewProdutoForm classes='mt-5 gap-5 w-full mx-auto'>
+            <NewProdutoForm className='mt-5 gap-5 w-full mx-auto'>
                 <div className='flex flex-col items-center'>
                     {/* // ! IMPEDIR ARQUIVOS DIFERENTES DE PNG, JPG, ETC */}
                     <input
@@ -55,8 +55,8 @@ function AdicionarProduto() {
                 <InputField 
                     label={'Nome do produto'}
                     type={'text'}
-                    labelClasses={'w-[50%]'}
-                    inputClasses={'w-[50%]'}
+                    labelclassName={'w-[50%]'}
+                    inputclassName={'w-[50%]'}
                     placeholder={'Dipirona monoidratada'}
                     name=''
                 />
@@ -65,8 +65,8 @@ function AdicionarProduto() {
                 <InputField 
                     label={'Nome químico'}
                     type={'text'}
-                    labelClasses={'w-[50%]'}
-                    inputClasses={'w-[50%]'}
+                    labelclassName={'w-[50%]'}
+                    inputclassName={'w-[50%]'}
                     placeholder={''}
                     name=''
                 />
@@ -78,16 +78,16 @@ function AdicionarProduto() {
                         label={'Preço'}
                         type={'text'}                        
                         placeholder={''}
-                        labelClasses={'w-full'}
-                        inputClasses={'w-full'}
+                        labelclassName={'w-full'}
+                        inputclassName={'w-full'}
                         name=''
                     />
                     {/* // ! IMPEDIR O USUÁRIO DE INSERIR Nº NEGATIVO */}
                     <InputField 
                         label={'Estoque'}
                         type={'number'}
-                        labelClasses={'w-full'}
-                        inputClasses={'w-full'}
+                        labelclassName={'w-full'}
+                        inputclassName={'w-full'}
                         placeholder={''}
                         name=''
                     />
@@ -98,8 +98,8 @@ function AdicionarProduto() {
                 <InputField 
                     label={'Lote'}
                     type={'text'}
-                    labelClasses={'w-[50%]'}
-                    inputClasses={'w-[50%]'}
+                    labelclassName={'w-[50%]'}
+                    inputclassName={'w-[50%]'}
                     placeholder={''}
                     name=''
                 />
@@ -108,8 +108,8 @@ function AdicionarProduto() {
                 {/* // ? Adicionar limite de caracteres? */}
                 <TextareaField
                     label={'Descricao'}
-                    labelClasses={'w-[50%]'}
-                    inputClasses={'w-[50%]'}
+                    labelclassName={'w-[50%]'}
+                    inputclassName={'w-[50%]'}
                     placeholder={''}
                     name=''
                 />
@@ -118,13 +118,13 @@ function AdicionarProduto() {
                 <InputField 
                     label={'Validade'}
                     type={'date'}
-                    labelClasses={'w-[50%]'}
-                    inputClasses={'w-[50%]'}
+                    labelclassName={'w-[50%]'}
+                    inputclassName={'w-[50%]'}
                     placeholder={''}
                     name=''
                 />
 
-                <PrimaryButton type='submit' text={'Enviar'} classes='w-[60%]' />
+                <PrimaryButton type='submit' text={'Enviar'} className='w-[60%]' />
             </NewProdutoForm>
         </GenericContainer>
     )

@@ -7,12 +7,12 @@ function HomeLojas() {
   return (
     <div>
       <GenericContainer>
-        <SecondaryText classes={'text-black'} text={'Olá usuário X'} />
+        <SecondaryText className={'text-black'} text={'Olá usuário X'} />
         <div className="flex flex-col items-center justify-center">
           <SecondaryButton
             link={true}
             url='/adicionar-produto'            
-            classes='
+            className='
               w-[50%] 
               text-center 
               duration-300 
@@ -24,8 +24,8 @@ function HomeLojas() {
         </div>
 
         <div className="flex flex-col items-center justify-center mt-5 gap-5 overflow-auto">
-          <CardContainer classes={'w-[40%] gap-5'}>
-            <TerciaryText text={'Gerencie seu estoque:'} classes='text-center' />
+          <CardContainer className={'w-[40%] gap-5'}>
+            <TerciaryText text={'Gerencie seu estoque:'} className='text-center' />
             <div className="flex gap-2 items-center">
               <span>Produtos em estoque:</span>
               <span>10</span>
@@ -39,8 +39,8 @@ function HomeLojas() {
             </PrimaryButton>
           </CardContainer>
 
-          <CardContainer classes={'gap-5 w-[40%]'}>
-            <TerciaryText text={'Gerencie seus pedidos:'} classes={'text-center'} />
+          <CardContainer className={'gap-5 w-[40%]'}>
+            <TerciaryText text={'Gerencie seus pedidos:'} className={'text-center'} />
             <div className="flex items-center gap-2">
               <span>Pedidos concluídos:</span>
               <span>10</span>

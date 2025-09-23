@@ -10,7 +10,7 @@ function GenericContainer({ children, className }) {
     )
 }
 
-export const CardContainer = ({ classes, children, ...props }) => {
+export const CardContainer = ({ className, children, ...props }) => {
     return (
         <div
             className={`
@@ -20,7 +20,7 @@ export const CardContainer = ({ classes, children, ...props }) => {
                 rounded-xl                
                 flex
                 flex-col                
-                ${classes}
+                ${className}
             `}
             {...props}
         >

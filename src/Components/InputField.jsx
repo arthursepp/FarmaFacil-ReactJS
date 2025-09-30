@@ -1,7 +1,7 @@
 
-function InputField({label, labelClassName, inputClassName, inputName,...props}){
+function InputField({label, containerClassName, labelClassName, inputClassName, inputName,...props}){
   return (
-    <div className='flex flex-col gap-2'>
+    <div className={`flex flex-col gap-2 ${containerClassName}`}>
       <label htmlFor={inputName} className={`${labelClassName}`}>
         {label}
       </label>

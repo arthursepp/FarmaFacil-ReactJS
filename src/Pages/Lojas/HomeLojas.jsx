@@ -50,7 +50,7 @@ function HomeLojas() {
               <span>Pedidos pendentes:</span>
               <span>10</span>
             </div>
-            <PrimaryButton link={true} url='#'>
+            <PrimaryButton link={true} url='/pedidos/lojas'>
               <span className="text-xl">Gerencie seus pedidos</span>
             </PrimaryButton>
           </CardContainer>

@@ -10,9 +10,11 @@ import HomeLojas from './Pages/Lojas/HomeLojas.jsx'
 import Estoque from './Pages/Lojas/Estoque.jsx'
 import PedidosLoja from './Pages/Lojas/Pedidos/PedidosLoja'
 import AdicionarProduto from './Pages/Lojas/AdicionarProduto.jsx'
+import EditarProduto from './Pages/Lojas/EditarProduto.jsx'
 
 import ConfiguracoesLoja from './Pages/Lojas/ConfiguracoesLoja.jsx'
 import EditarLoja from './Pages/Lojas/EditarLoja.jsx'
+import DetalhesPedidoLoja from './Pages/Lojas/Pedidos/DetalhesPedidoLoja.jsx'
 
 import { Routes, Route } from 'react-router-dom'
 
@@ -29,8 +31,11 @@ const App = () => {
         <Route path='/cadastro/lojas' element={<CadastroLojas />} />
         <Route path='/home/lojas' element={<HomeLojas />} />
         <Route path='/estoque' element={<Estoque />} />
+        
         <Route path='/adicionar-produto' element={<AdicionarProduto />} />
+        <Route path='/editar-produto' element={<EditarProduto />} />
         <Route path='/pedidos/lojas' element={<PedidosLoja />} />
+        <Route path='/pedidos/lojas/detalhes' element={<DetalhesPedidoLoja />} />
 
         <Route path='/configuracoes/lojas' element={<ConfiguracoesLoja />} />
         <Route path='/editar/lojas' element={<EditarLoja />} />

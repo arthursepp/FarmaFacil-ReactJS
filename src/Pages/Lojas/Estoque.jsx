@@ -16,7 +16,7 @@ function Estoque() {
             header: 'Ações',
             accessor: () => (
                 <div className='flex gap-4 items-center justify-center'>
-                    <PrimaryButton href='#' link={true} title='Editar este produto' >
+                    <PrimaryButton href='editar-produto/' link={true} title='Editar este produto' >
                         <FontAwesomeIcon icon={faPencil} />
                     </PrimaryButton>
                     <PrimaryDangerButton href='#' link={true} title='Deletar este produto'>
@@ -38,8 +38,8 @@ function Estoque() {
             <GenericContainer>
                 <ReturnButton />
                 <div className='flex items-center justify-between mt-3'>                   
-                    <Header text='Seus produtos' icon={faPills} iconClassName={'text-2xl'}/>                    
-                    <SecondaryButton link={true} className={'flex items-center gap-3'}>
+                    <Header text='Seus produtos' icon={faPills} iconClassName={'text-2xl'}/>
+                    <SecondaryButton link={true} className={'flex items-center gap-3'} url={'adicionar-produto/'} >
                         <span className='text-xl'>Adicionar novo produto</span>
                         <FontAwesomeIcon icon={faPlus} />
                     </SecondaryButton>

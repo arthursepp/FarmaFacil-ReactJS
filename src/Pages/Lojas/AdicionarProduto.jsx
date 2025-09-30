@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import GenericContainer from '../../Components/Containers'
-import { PrimaryText, SecondaryText } from '../../Components/Titles'
+import { SecondaryText } from '../../Components/Titles'
 import { NewProdutoForm } from '../../Components/Form'
 import InputField, { TextareaField } from '../../Components/InputField'
 import { PrimaryButton, ReturnButton } from '../../Components/Buttons'
@@ -20,8 +20,7 @@ function AdicionarProduto() {
             <SecondaryText text={'Adicionar produto'} className={'mt-5'} />
             
             <NewProdutoForm className='mt-5 gap-5 w-full mx-auto'>
-                <div className='flex flex-col items-center'>
-                    {/* // ! IMPEDIR ARQUIVOS DIFERENTES DE PNG, JPG, ETC */}
+                <div className='flex flex-col items-center'>                    
                     <input
                         id="fileInput"
                         type="file"
@@ -54,21 +53,23 @@ function AdicionarProduto() {
                 {/* // * Nome do produto */}
                 <InputField 
                     label={'Nome do produto'}
-                    type={'text'}
-                    labelclassName={'w-[50%]'}
-                    inputclassName={'w-[50%]'}
-                    placeholder={'Dipirona monoidratada'}
-                    name=''
+                    type='text'
+                    containerClassName='w-[50%]'
+                    labelClassName='text-xl font-bold'
+                    inputClassName='border-2 p-2 rounded-xl border-blue-500'
+                    placeholder='Dipirona monoidratada'
+                    inputName=''
                 />
 
                 {/* // * Nome químico */}
                 <InputField 
                     label={'Nome químico'}
                     type={'text'}
-                    labelclassName={'w-[50%]'}
-                    inputclassName={'w-[50%]'}
-                    placeholder={''}
-                    name=''
+                    containerClassName='w-[50%]'
+                    labelClassName='text-xl font-bold'
+                    inputClassName='border-2 p-2 rounded-xl border-blue-500'
+                    placeholder={'AAAAAAAAAAAAAAAAAAAAAAAA'}
+                    inputName=''
                 />
 
                 {/* // * Preço e estoque */}
@@ -77,17 +78,19 @@ function AdicionarProduto() {
                     <InputField 
                         label={'Preço'}
                         type={'text'}                        
+                        containerClassName='w-full'
+                        labelClassName='text-xl font-bold'
+                        inputClassName='border-2 p-2 rounded-xl border-blue-500'
                         placeholder={''}
-                        labelclassName={'w-full'}
-                        inputclassName={'w-full'}
-                        name=''
+                        inputName=''
                     />
                     {/* // ! IMPEDIR O USUÁRIO DE INSERIR Nº NEGATIVO */}
                     <InputField 
                         label={'Estoque'}
                         type={'number'}
-                        labelclassName={'w-full'}
-                        inputclassName={'w-full'}
+                        containerClassName='w-full'
+                        labelClassName='text-xl font-bold'
+                        inputClassName='border-2 p-2 rounded-xl border-blue-500'
                         placeholder={''}
                         name=''
                     />
@@ -98,8 +101,9 @@ function AdicionarProduto() {
                 <InputField 
                     label={'Lote'}
                     type={'text'}
-                    labelclassName={'w-[50%]'}
-                    inputclassName={'w-[50%]'}
+                    containerClassName='w-[50%]'
+                    labelClassName='text-xl font-bold'
+                    inputClassName='border-2 p-2 rounded-xl border-blue-500'
                     placeholder={''}
                     name=''
                 />
@@ -118,13 +122,18 @@ function AdicionarProduto() {
                 <InputField 
                     label={'Validade'}
                     type={'date'}
-                    labelclassName={'w-[50%]'}
-                    inputclassName={'w-[50%]'}
+                    containerClassName='w-[50%]'
+                    labelClassName='text-xl font-bold'
+                    inputClassName='border-2 p-2 rounded-xl border-blue-500'
                     placeholder={''}
                     name=''
                 />
 
-                <PrimaryButton type='submit' text={'Enviar'} className='w-[60%]' />
+                <PrimaryButton type='submit' className='w-[50%]'>
+                    <span className='text-xl'>
+                        Adicionar produto
+                    </span>
+                </PrimaryButton>
             </NewProdutoForm>
         </GenericContainer>
     )

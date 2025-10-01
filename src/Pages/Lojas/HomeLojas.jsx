@@ -3,61 +3,55 @@ import GenericContainer, { CardContainer } from "../../Components/Containers"
 import { SecondaryText, TerciaryText } from "../../Components/Titles"
 import { PrimaryButton, SecondaryButton } from "../../Components/Buttons"
 
+const SmallInfoContainer = ({ texto1, texto2, className }) => {
+  return (
+    <div className={`flex items-center gap-2 ${className}`}>
+      <span>{texto1}</span>
+      <span>{texto2}</span>
+    </div>
+  )
+}
+
 function HomeLojas() {
   return (
     <div>
-      <GenericContainer>
-        <SecondaryText className={'text-black'} text={'Olá usuário X'} />
-        <div className="flex flex-col items-center justify-center">
-          <SecondaryButton
-            link={true}
-            url='/adicionar-produto'            
-            className='
-              w-[50%] 
-              text-center 
-              duration-300 
-              ease-in-out
-            '
-          >
-            <span className="text-xl">Adicionar novo produto</span>
-          </SecondaryButton>
+      <div className='p-5'>
+        <SecondaryText text='Olá usuário' />
+        <div className="flex flex-col gap-3">
+
+          <div className='flex items-center justify-center mt-2 md:w-[40%] md:m-auto'>
+            <SecondaryButton link={true} url='/adicionar-produto' className='w-full text-center'>
+              <span>Adicionar novo produto</span>
+            </SecondaryButton>
+          </div>
+
+          <div className="flex flex-col gap-3 md:m-auto md:w-[40%]">
+
+            <div className="flex flex-col border-2 border-blue-500 p-2 rounded-xl gap-2 xl:gap-3">
+              <div className="m-auto">
+                <span className='text-xl'>Gerenciar produtos</span>
+              </div>
+              <SmallInfoContainer texto1={'Produtos em estoque:'} texto2='xx' />
+              <SmallInfoContainer texto1={'Produto em menor quantidade:'} texto2='xx' />
+              <PrimaryButton link={true} url='/estoque'>
+                <span>Ver estoque</span>
+              </PrimaryButton>
+            </div>
+
+            <div className="flex flex-col border-2 border-blue-500 p-2 rounded-xl gap-2 xl:gap-3">
+              <div className="m-auto">
+                <span className='text-xl'>Gerenciar pedidos</span>
+              </div>
+              <SmallInfoContainer texto1={'Pedidos concluídos'} texto2='xx' />
+              <SmallInfoContainer texto1={'Pedidos pendentes:'} texto2='xx' />
+              <PrimaryButton link={true} url='/pedidos/lojas'>
+                <span>Ver pedidos</span>
+              </PrimaryButton>
+            </div>
+          </div>
         </div>
-
-        <div className="flex flex-col items-center justify-center mt-5 gap-5 overflow-auto">
-          <CardContainer className={'w-[40%] gap-5'}>
-            <TerciaryText text={'Gerencie seu estoque:'} className='text-center' />
-            <div className="flex gap-2 items-center">
-              <span>Produtos em estoque:</span>
-              <span>10</span>
-            </div>
-            <div className="flex gap-2 items-center">
-              <span>Produto com menos unidades:</span>
-              <span>10</span>
-            </div>
-            <PrimaryButton link={true} url='/estoque'>
-              <span className="text-xl">Gerencie seu estoque</span>
-            </PrimaryButton>
-          </CardContainer>
-
-          <CardContainer className={'gap-5 w-[40%]'}>
-            <TerciaryText text={'Gerencie seus pedidos:'} className={'text-center'} />
-            <div className="flex items-center gap-2">
-              <span>Pedidos concluídos:</span>
-              <span>10</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span>Pedidos pendentes:</span>
-              <span>10</span>
-            </div>
-            <PrimaryButton link={true} url='/pedidos/lojas'>
-              <span className="text-xl">Gerencie seus pedidos</span>
-            </PrimaryButton>
-          </CardContainer>
-
-        </div>
-      </GenericContainer>
-      <Footer type={'loja'} text='' />
+      </div>
+      <Footer type='loja' className='fixed' />
     </div>
   )
 }

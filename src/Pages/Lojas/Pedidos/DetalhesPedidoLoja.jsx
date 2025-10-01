@@ -44,10 +44,10 @@ function DetalhesPedido() {
         <ReturnButton />
         <Header text={'Detalhes deste pedido:'} divClassName={'mt-5'} />
         <CardContainer className={'mt-4 gap-4'}>
-          
+
           <InfoParagraph mainText='Id:' text={'aaaaaaaaa'} />
           <InfoParagraph mainText='Data:' text={'12/11/2004'} />
-          
+
           <div>
             <TerciaryText text='Itens:' />
             <div className='border border-slate-500 rounded-xl mt-3'>

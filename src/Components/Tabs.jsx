@@ -1,11 +1,11 @@
 // Components/Tabs/GenericTabs.jsx
 import { useState } from "react"
 
-function GenericTabs({ tabs, defaultActive }) {
+function GenericTabs({ tabs, defaultActive, className }) {
     const [activeTab, setActiveTab] = useState(defaultActive || tabs[0]?.id)
 
     return (
-        <div className="w-full">
+        <div className="">
             {/* Header das Tabs */}
             <div className="flex border-b-1 border-slate-300 mt-3">
                 {tabs.map((tab) => (
@@ -42,8 +42,19 @@ function GenericTabs({ tabs, defaultActive }) {
                 ))}
             </div>
 
-            {/* Conteúdo da aba ativa */}
-            <div className="flex flex-col w-full border-l-1 border-r-1 border-b-1 border-slate-300 overflow-y-auto max-h-[520px]">
+            {/* Conteúdo da aba */}
+            <div className={`
+                    flex 
+                    flex-col 
+                    w-full 
+                    border-l-1 
+                    border-r-1 
+                    border-b-1 
+                    border-slate-300 
+                    overflow-y-auto 
+                    ${className}
+                `}
+            >
                 {tabs.map((tab) =>
                     activeTab === tab.id ? (
                         <div key={tab.id} className="">

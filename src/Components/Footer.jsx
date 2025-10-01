@@ -3,7 +3,7 @@ import { IconTabLink } from "./Links";
 import { useLocation } from "react-router-dom"
 
 function Footer({ type, className, children, ...props }) {
-    const location = useLocation(); // <-- use o hook aqui!
+    const location = useLocation();
     const currentRoute = location.pathname;
 
     if (type?.toLowerCase() === 'loja') {

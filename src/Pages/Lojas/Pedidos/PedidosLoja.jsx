@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import GenericContainer from '../../../Components/Containers'
 import { SecondaryText } from '../../../Components/Titles'
 import Footer from '../../../Components/Footer'
 import { ReturnButton } from '../../../Components/Buttons'
@@ -57,17 +55,22 @@ function PedidosLoja() {
     ]
 
     return (
-        <div>
-            <GenericContainer>
+        <>
+            <div className='p-5'>
                 <ReturnButton />
-                <SecondaryText text='Seus pedidos' className={'text-black my-4 text-center'} />
-
-                <GenericTabs tabs={tabs} defaultActive={'Concluidos'}/>
-
-            </GenericContainer>
-
-            <Footer type='loja' />
-        </div>
+                <SecondaryText text='Seus pedidos' className={'text-black my-4'} />
+                <GenericTabs 
+                    tabs={tabs} 
+                    defaultActive={'Concluidos'} 
+                    className='
+                        xl:max-h-[400px]
+                        md:max-h-[350px]
+                        max-h-[350px]
+                    '
+                />
+            </div>
+            <Footer type='loja' className='fixed' />
+        </>
     )
 }
 

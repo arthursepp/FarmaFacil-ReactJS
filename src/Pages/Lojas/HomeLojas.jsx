@@ -14,7 +14,7 @@ const SmallInfoContainer = ({ texto1, texto2, className }) => {
 
 function HomeLojas() {
   return (
-    <div>
+    <>
       <div className='p-5'>
         <SecondaryText text='Olá usuário' />
         <div className="flex flex-col gap-3">
@@ -52,7 +52,7 @@ function HomeLojas() {
         </div>
       </div>
       <Footer type='loja' className='fixed' />
-    </div>
+    </>
   )
 }
 

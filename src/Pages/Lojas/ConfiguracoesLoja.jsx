@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PrimaryButton, PrimaryDangerButton, SecondaryDangerButton } from '../../Components/Buttons'
-import GenericContainer from '../../Components/Containers'
+import GenericContainer, { CardContainer } from '../../Components/Containers'
 import Footer from '../../Components/Footer'
-import { SecondaryText, TerciaryText } from '../../Components/Titles'
+import { Header, SecondaryText, TerciaryText } from '../../Components/Titles'
 import { faPencil, faSignOut, faTrash, faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GenericModal from '../../Components/Modals'
@@ -20,84 +20,72 @@ function ConfiguracoesLoja() {
   }
 
   return (
-    <div>
-      <GenericContainer className='h-screen'>
-        <div className='flex items-center gap-3'>
-          <SecondaryText text={'Configurações'} />
-          <FontAwesomeIcon icon={faGear} className='text-2xl' />
-        </div>
+    <>
+      <div className='p-5'>
+        <Header text={'Configurações'} icon={faGear} iconClassName='text-2xl' />
 
-        <div
+        <CardContainer
           className='
-              border
-              p-5
-              border-gray-400
-              flex
-              flex-col              
-              overflow-auto              
-              gap-6
-              h-[70%]
-              rounded-xl
-              mt-5
-            '
+            border-blue-500 
+            p-3 
+            mt-3 
+            xl:max-h-[450px]
+            md:max-h-[450px]
+            max-h-[450px]
+            overflow-y-auto
+            gap-5
+          '
         >
-          <div className='flex flex-col gap-5'>
-            <TerciaryText text={'Nome do usuário'} />
-            <div className='flex flex-col gap-3 mt-2'>
-              <span>E-mail: meuemailgenerico@dominio.com</span>
-              <span>Telefone: 11 9 87654-3210</span>
-              <span>Endereço: Av das farmácias Nº 19999</span>
-              <span>Complemento: N/A</span>
-            </div>
+          <ul className='flex flex-col gap-3'>
+            <li><span>Nome: {'{Nome do usuário}'}</span></li>
+            <li><span>E-mail: {'{E-mail do usuário}'}</span></li>
+            <li><span>Telefone: {'{Telefone do usuário}'}</span></li>
+            <li><span>Endereço: {'{Endereço do usuário}'}</span></li>
+            <li><span>Complemento: {'{Complemento do endereço}'}</span></li>
+          </ul>
+          <hr className='border-slate-400' />
+          <div className='flex flex-col w-full xl:w-[75%] md:w-[70%] m-auto'>
 
-            <PrimaryButton
-              link={true}
-              url={'/editar/lojas'}
-              className={'w-[50%] mx-auto mt-10 flex items-center justify-center gap-5'}
-            >
-              <span className="text-xl">Editar informações</span>
+            <PrimaryButton className='flex items-center gap-3 justify-center'>
+              <span>Editar informações</span>
               <FontAwesomeIcon icon={faPencil} />
             </PrimaryButton>
-          </div>
 
-          <hr className='border-1 border-gray-400' />
-
-          <div className='flex flex-col gap-3 w-[50%] mx-auto '>
-            <SecondaryDangerButton className={'flex items-center justify-center gap-5'}>
-              <span className='text-xl'>Sair</span>
+            <SecondaryDangerButton className='flex items-center gap-3 justify-center'>
+              <span>Sair</span>
               <FontAwesomeIcon icon={faSignOut} />
             </SecondaryDangerButton>
 
-            {/* Botão que abre o modal */}
             <PrimaryDangerButton
               onClick={() => setShowModal(true)}
-              className={'flex items-center justify-center gap-5'}
+              className='flex items-center gap-3 justify-center'
             >
-              <span className="text-xl">Deletar conta</span>
+              <span>Excluir conta</span>
               <FontAwesomeIcon icon={faTrash} />
             </PrimaryDangerButton>
+
           </div>
-        </div>
-      </GenericContainer>
+        </CardContainer>
 
-      <Footer type={'loja'} />
 
-      <GenericModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onConfirm={handleConfirmDelete}
-        title="Tem certeza que deseja deletar sua conta?"
-        rightBtnClassName="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        leftBtnClassName="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
-        loading={loading}
-        confirmText="Sim, deletar"
-        cancelText="Não, voltar"
-      >
-        <p className="text-gray-600">
-          Esta ação não poderá ser desfeita.
-        </p>
-      </GenericModal>
-    </div>
+        <GenericModal
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+          onConfirm={handleConfirmDelete}
+          title="Tem certeza que deseja deletar sua conta?"
+          rightBtnClassName="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          leftBtnClassName="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+          loading={loading}
+          confirmText="Sim, deletar"
+          cancelText="Não, voltar"
+        >
+          <p className="text-gray-600">
+            Esta ação não poderá ser desfeita.
+          </p>
+        </GenericModal>
+      </div>
+      <Footer type={'loja'} className='fixed' />
+    </>
   )
 }
 

@@ -13,10 +13,8 @@ function GenericContainer({ children, className }) {
 export const CardContainer = ({ className, children, ...props }) => {
     return (
         <div
-            className={`
-                p-5
-                border-2
-                border-blue-500
+            className={`                
+                border-2                
                 rounded-xl                
                 flex
                 flex-col                

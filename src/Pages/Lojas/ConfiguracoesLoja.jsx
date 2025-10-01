@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PrimaryButton, PrimaryDangerButton, SecondaryDangerButton } from '../../Components/Buttons'
-import GenericContainer, { CardContainer } from '../../Components/Containers'
+import { CardContainer } from '../../Components/Containers'
 import Footer from '../../Components/Footer'
 import { Header, SecondaryText, TerciaryText } from '../../Components/Titles'
 import { faPencil, faSignOut, faTrash, faGear } from '@fortawesome/free-solid-svg-icons'

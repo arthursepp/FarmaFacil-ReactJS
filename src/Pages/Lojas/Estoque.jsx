@@ -2,53 +2,112 @@ import { PrimaryButton, PrimaryDangerButton, ReturnButton, SecondaryButton } fro
 import GenericContainer from '../../Components/Containers'
 import { Header } from '../../Components/Titles'
 import { faPills, faPlus, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
-import GenericTable from '../../Components/Tables'
+import TabelaEstoque from '../../Components/Tables'
 import Footer from '../../Components/Footer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Estoque() {
 
-    const cols = [        
-        { header: 'Nome', accessor: 'name' },
-        { header: 'Estoque', accessor: 'estoque' },
-        { header: 'Qtd vendida', accessor: 'qtdVendas' },        
+    const medicamentos = [
         {
-            header: 'Ações',
-            accessor: () => (
-                <div className='flex gap-4 items-center justify-center'>
-                    <PrimaryButton href='editar-produto/' link={true} title='Editar este produto' >
-                        <FontAwesomeIcon icon={faPencil} />
-                    </PrimaryButton>
-                    <PrimaryDangerButton href='#' link={true} title='Deletar este produto'>
-                        <FontAwesomeIcon icon={faTrash} />
-                    </PrimaryDangerButton>
-                </div>
-            )
-        }
-    ]
-
-    const data = [
-        { name: "Arthur Sepp", estoque: "arthur@email.com", qtdVendas: '10' },
-        { name: "Maria Silva", email: "maria@email.com" },
-        { name: "João Souza", email: "joao@email.com" },
+            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
+            nome: "Dipirona",
+            nome_quimico: "Metamizol sódico",
+            preco: { $numberDouble: "12.99" },
+            quantidade: { $numberInt: "50" },
+            validade: "2026-08-30",
+            lote: "DIP1234",
+            label: "Analgésico e Antipirético",
+            imagem_url:
+                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
+        },
+        {
+            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
+            nome: "Dipirona",
+            nome_quimico: "Metamizol sódico",
+            preco: { $numberDouble: "12.99" },
+            quantidade: { $numberInt: "50" },
+            validade: "2026-08-30",
+            lote: "DIP1234",
+            label: "Analgésico e Antipirético",
+            imagem_url:
+                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
+        },
+        {
+            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
+            nome: "Dipirona",
+            nome_quimico: "Metamizol sódico",
+            preco: { $numberDouble: "12.99" },
+            quantidade: { $numberInt: "50" },
+            validade: "2026-08-30",
+            lote: "DIP1234",
+            label: "Analgésico e Antipirético",
+            imagem_url:
+                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
+        },
+        {
+            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
+            nome: "Dipirona",
+            nome_quimico: "Metamizol sódico",
+            preco: { $numberDouble: "12.99" },
+            quantidade: { $numberInt: "50" },
+            validade: "2026-08-30",
+            lote: "DIP1234",
+            label: "Analgésico e Antipirético",
+            imagem_url:
+                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
+        },
+        {
+            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
+            nome: "Dipirona",
+            nome_quimico: "Metamizol sódico",
+            preco: { $numberDouble: "12.99" },
+            quantidade: { $numberInt: "50" },
+            validade: "2026-08-30",
+            lote: "DIP1234",
+            label: "Analgésico e Antipirético",
+            imagem_url:
+                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
+        },
+        {
+            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
+            nome: "Dipirona",
+            nome_quimico: "Metamizol sódico",
+            preco: { $numberDouble: "12.99" },
+            quantidade: { $numberInt: "50" },
+            validade: "2026-08-30",
+            lote: "DIP1234",
+            label: "Analgésico e Antipirético",
+            imagem_url:
+                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
+        },
     ];
 
-    return (
-        <div>
-            <GenericContainer>
-                <ReturnButton />
-                <div className='flex items-center justify-between mt-3'>                   
-                    <Header text='Seus produtos' icon={faPills} iconClassName={'text-2xl'}/>
-                    <SecondaryButton link={true} className={'flex items-center gap-3'} url={'adicionar-produto/'} >
-                        <span className='text-xl'>Adicionar novo produto</span>
-                        <FontAwesomeIcon icon={faPlus} />
-                    </SecondaryButton>
-                </div>
+    const handleEdit = (item) => {
+        console.log("Editar:", item);
+        // aqui você pode abrir um modal para editar
+    };
 
-                <GenericTable columns={cols} data={data} divClassName='mt-4' />
-            </GenericContainer>
-            <Footer type='loja' />
-        </div>
+    const handleDelete = (item) => {
+        console.log("Excluir:", item);
+        // aqui você pode chamar sua API de delete
+    };
+
+    return (
+        <>
+            <div className='p-5'>
+                <ReturnButton />
+                <Header text={'Estoque'} divClassName={'mt-2'} icon={faPills} iconClassName={'text-2xl'} />
+
+                <TabelaEstoque
+                    dados={medicamentos}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                />
+
+            </div>
+            <Footer type='loja' className='fixed' />
+        </>
     )
 }
 

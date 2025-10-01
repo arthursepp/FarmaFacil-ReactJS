@@ -13,15 +13,15 @@ function Footer({ type, className, children, ...props }) {
                 className={`
                     ${className}
                     flex 
-                    w-full 
-                    border-t 
+                    w-full
+                    border-t
                     border-gray-400
-                    bg-white                    
-                    left-0 
+                    bg-white
+                    left-0
                     bottom-0
-                    text-slate-500 
+                    text-slate-500
                     justify-around
-                    py-2
+                    py-3
                 `}
             >
                 <IconTabLink

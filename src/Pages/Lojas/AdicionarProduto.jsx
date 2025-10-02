@@ -63,7 +63,7 @@ function AdicionarProduto() {
                                 text-white 
                                 rounded 
                                 cursor-pointer 
-                                hover:bg-blue-600 
+                                hover:bg-primaryBlue 
                                 p-3 
                                 mt-5
                                 text-md

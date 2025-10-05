@@ -39,15 +39,14 @@ export const PrimaryButton = ({ children, link, url, className, ...props }) => {
         return (
             <a href={url} {...props}
                 className={`
-                bg-red
+                bg-blue-500 
                 text-white 
                 p-3
                 cursor-pointer
                 rounded-xl
                 mt-2
                 text-center
-                font-poppins
-                hover:bg-primaryBlue
+                hover:bg-blue-600
                 ${className}
             `}
             >
@@ -64,7 +63,7 @@ export const PrimaryButton = ({ children, link, url, className, ...props }) => {
                 cursor-pointer
                 rounded-xl
                 mt-2
-                hover:bg-primaryBlue
+                hover:bg-blue-600
                 ${className}
             `}
             >

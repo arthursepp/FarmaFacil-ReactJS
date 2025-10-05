@@ -1,4 +1,4 @@
-import InputField from "../../../Components/InputField"
+import InputField from "../../../Components/Inputs"
 import { PrimaryText } from "../../../Components/Titles"
 import Form from "../../../Components/Form"
 import { PrimaryButton } from '../../../Components/Buttons'

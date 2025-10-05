@@ -1,189 +1,206 @@
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { PrimaryButton, ReturnButton } from '../../Components/Buttons'
-import GenericContainer from '../../Components/Containers'
+import { CardContainer } from '../../Components/Containers'
 import Footer from '../../Components/Footer'
-import { SecondaryText } from '../../Components/Titles'
-import InputField from '../../Components/InputField'
+import { Header } from '../../Components/Titles'
+import MaskedInput, { InputField, TextareaField } from '../../Components/Inputs'
 
 function EditarDadosLoja() {
   return (
-    <div>
-      <GenericContainer>
+    <>
+      <div className='p-5'>
         <ReturnButton />
-        <div className="flex gap-3 items-center mt-5">
-          <SecondaryText text='Editar informações' />
-          <FontAwesomeIcon icon={faPencil} className='text-2xl' />
-        </div>
+        <Header text={'Editar informações'} icon={faPencil} iconClassName={'text-md'} divClassName={'mt-3'} />
 
-        <div
-          className='
-              border
-              p-5
-              border-gray-400
-              flex
-              flex-col
-              overflow-auto              
-              max-h-[550px]
-              gap-4              
-              rounded-xl
-              mt-5
-            '
-        >
-          <InputField
-            label='CNPJ:'
+        <CardContainer className='mt-3 border-blue-500 p-2 gap-3'>
+          <MaskedInput
+            labelText='CNPJ:'
             type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
+            name='cnpj'
+            mask='cnpj'
+            divClassName='              
+              m-auto
+              xl:m-auto
+              md:m-auto
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full
             '
+            maxLength={18}
           />
           <InputField
-            label='Nome:'
+            labelText='Nome:'
             type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full
             '
           />
           <InputField
-            label='Nome da rede:'
+            labelText='Nome da rede:'
             type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full
+            '
+          />
+          <MaskedInput
+            labelText='Telefone'
+            mask='phone'
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full
             '
           />
           <InputField
-            label='E-mail:'
-            type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
+            labelText='E-mail:'
+            type='email'
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full
             '
           />
           <InputField
-            label='Senha:'
+            labelText='Senha:'
             type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full
+            '
+          />
+          <MaskedInput
+            labelText='CEP:'
+            type='text'
+            mask='cep'
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full
             '
           />
           <InputField
-            label='CEP:'
+            labelText='Cidade:'
             type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full              
+            '
+            inputClassName={'bg-slate-200'}
+            disabled
+          />
+          <InputField
+            labelText='Estado:'
+            type='text'
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full              
+            '
+            inputClassName={'bg-slate-200'}
+            disabled
+          />
+          <InputField
+            labelText='Bairro:'
+            type='text'
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full              
+            '
+            inputClassName={'bg-slate-200'}
+            disabled
+          />
+          <InputField
+            labelText='Rua:'
+            type='text'
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full              
+            '
+            inputClassName={'bg-slate-200'}
+            disabled
+          />
+          <InputField
+            labelText='Número:'
+            type='text'
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full              
             '
           />
-          <InputField
-            label='Estado:'
+          <TextareaField
+            labelText='Complemento (Opcional):'
             type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-                border-2
-                border-blue-500
-                rounded-xl
-                outline-none
-                p-2
-              '
-          />
-          <InputField
-            label='Cidade:'
-            type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-                border-2
-                border-blue-500
-                rounded-xl
-                outline-none
-                p-2
-              '
-          />
-          <InputField
-            label='Bairro:'
-            type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-                border-2
-                border-blue-500
-                rounded-xl
-                outline-none
-                p-2
-              '
-          />
-          <InputField
-            label='Rua:'
-            type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
+            divClassName='
+              m-auto 
+              xl:m-auto 
+              md:m-auto 
+              w-full 
+              xl:w-[60%] 
+              md:w-[60%] 
+              sm:w-full              
             '
           />
-          <InputField
-            label='Número:'
-            type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
-            '
-          />
-          <InputField
-            label='Complemento (Opcional):'
-            type='text'
-            labelClassName='text-xl font-bold'
-            inputClassName='
-              border-2
-              border-blue-500
-              rounded-xl
-              outline-none
-              p-2
-            '
-          />
-          <div className='w-full flex'>
-            <PrimaryButton className='w-[50%] my-auto mx-auto'>
-              <span className="text-xl">Enviar</span>
-            </PrimaryButton>
-          </div>
-        </div>
-      </GenericContainer>
-      <Footer type={'loja'} />
-    </div>
+          <PrimaryButton className='w-full xl:mx-auto xl:w-[60%] md:w-[60%] md:mx-auto'>
+            <span className="text-xl">Enviar</span>
+          </PrimaryButton>
+        </CardContainer>
+      </div>
+      
+    </>
   )
 }
 

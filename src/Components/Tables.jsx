@@ -4,7 +4,7 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function TabelaEstoque({ dados, onEdit, onDelete }) {
     return (
-        <div className="max-h-[300px] overflow-x-auto mt-2.5 rounded-xl border border-slate-400">
+        <div className="max-h-[400px] sm:max-h-[350px] md:max-h-[400px] xl:max-h-[400px] overflow-x-auto mt-3 rounded-xl border border-slate-400">
             <table className="min-w-full rounded-xl shadow-sm">
                 <thead className="bg-blue-500 text-white font-bold">
                     <tr>

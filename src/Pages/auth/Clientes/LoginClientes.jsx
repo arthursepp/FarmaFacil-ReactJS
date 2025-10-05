@@ -1,7 +1,7 @@
 
 import { NavbarNotSigned } from "../../../Components/Navbar"
 import { PrimaryText } from "../../../Components/Titles"
-import InputField from "../../../Components/InputField"
+import InputField from "../../../Components/Inputs"
 import { PrimaryButton } from "../../../Components/Buttons"
 import Form from "../../../Components/Form"
 

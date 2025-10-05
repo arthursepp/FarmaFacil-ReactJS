@@ -7,6 +7,7 @@ import { Header, SecondaryText, TerciaryText } from '../../Components/Titles'
 import { faPencil, faSignOut, faTrash, faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GenericModal from '../../Components/Modals'
+import {InputField} from '../../Components/Inputs'
 
 function ConfiguracoesLoja() {
   const [showModal, setShowModal] = useState(false)
@@ -46,7 +47,7 @@ function ConfiguracoesLoja() {
           <hr className='border-slate-400' />
           <div className='flex flex-col w-full xl:w-[75%] md:w-[70%] m-auto'>
 
-            <PrimaryButton className='flex items-center gap-3 justify-center'>
+            <PrimaryButton className='flex items-center gap-3 justify-center' link={true} url='/editar/lojas'>
               <span>Editar informações</span>
               <FontAwesomeIcon icon={faPencil} />
             </PrimaryButton>

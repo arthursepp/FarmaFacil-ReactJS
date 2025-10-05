@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import GenericContainer from '../../Components/Containers'
-import { Header } from '../../Components/Titles'
-import { NewProdutoForm } from '../../Components/Form'
-import InputField, { TextareaField } from '../../Components/InputField'
+import { CardContainer } from '../../Components/Containers'
+import { SecondaryText } from '../../Components/Titles'
 import { PrimaryButton, ReturnButton } from '../../Components/Buttons'
-import { faPencil } from '@fortawesome/free-solid-svg-icons'
+import MaskedInput, { InputField, TextareaField } from '../../Components/Inputs'
 
 function EditarProduto() {
     const [file, setFile] = useState("https://placehold.co/400x400?text=Pré-visualização")
@@ -13,13 +11,34 @@ function EditarProduto() {
         console.log(e.target.files)
         setFile(URL.createObjectURL(e.target.files[0]))
     }
+
+    const handleCurrencyChange = (clean, formatted) => {
+        console.log('Valor limpo:', clean);
+        console.log('Valor formatado:', formatted);
+    };
+
+    // Validação robusta para impedir negativos e valores não numéricos
+    function handleEstoqueChange(e) {
+        let value = e.target.value;
+        // Remove caracteres não numéricos
+        value = value.replace(/\D/g, '');
+        // Garante que não seja negativo
+        if (value === '' || Number(value) < 0) value = '0';
+        setEstoque(value);
+    }
+
     return (
-        <div>
-            <GenericContainer>
+        <>
+            <div className="p-5">
                 <ReturnButton />
-                <Header textClassName={'text-black'} text={'Editar produto'} icon={faPencil} iconClassName={'text-2xl'} divClassName='mt-5' />
-                <NewProdutoForm className='mt-5 gap-5 w-full mx-auto'>
-                    <div className='flex flex-col items-center'>
+                <SecondaryText
+                    text={'Adicionar produto'}
+                    className={'mt-3'}
+                />
+
+                <CardContainer className='mt-3 border-blue-500 p-2'>
+                    {/* Pré visualização da imagem */}
+                    <div className='flex flex-col items-center p-3 border-b-2 border-slate-400 mb-5'>
                         <input
                             id="fileInput"
                             type="file"
@@ -27,115 +46,155 @@ function EditarProduto() {
                             className="hidden"
                             onChange={handleChange}
                         />
-
                         {/* Pré-visualização */}
                         {file && (
                             <div className="mt-4">
                                 <img
                                     src={file}
                                     alt="Pré-visualizar imagem"
-                                    className="max-w-[400px] max-h-[400px] object-cover rounded border-2 border-blue-500 p-3"
+                                    className="
+                                        xl:max-w-[300px] 
+                                        md:max-w-[400px] 
+                                        sm:max-w-[250px]
+
+                                        xl:max-h-[400px] 
+                                        md:max-h-[500px] 
+                                        sm:max-h-[200px] 
+
+                                        object-cover 
+                                        rounded 
+                                        border-2 
+                                        border-blue-500 
+                                        p-3
+                                    "
                                 />
                             </div>
                         )}
-
                         <label
                             htmlFor="fileInput"
-                            className="bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 p-3 mt-5"
+                            className="
+                                bg-blue-500 
+                                text-white 
+                                rounded 
+                                cursor-pointer 
+                                hover:bg-blue-600 
+                                p-3 
+                                mt-5
+                                text-md
+                            "
                         >
                             Escolher imagem do produto
                         </label>
                     </div>
-
-                    <hr className='border-1 w-full border-slate-400' />
-
                     {/* // * Nome do produto */}
                     <InputField
-                        label={'Nome do produto'}
+                        labelText={'Nome do produto:'}
                         type='text'
-                        containerClassName='w-[50%]'
-                        labelClassName='text-xl font-bold'
-                        inputClassName='border-2 p-2 rounded-xl border-blue-500'
-                        placeholder='Dipirona monoidratada'
-                        inputName=''
+                        divClassName='
+                                m-auto                                
+                                xl:m-auto
+                                md:m-auto                                
+                                w-full 
+                                xl:w-[60%] 
+                                md:w-[60%] 
+                                sm:w-full
+                            '
                     />
-
-                    {/* // * Nome químico */}
                     <InputField
-                        label={'Nome químico'}
-                        type={'text'}
-                        containerClassName='w-[50%]'
-                        labelClassName='text-xl font-bold'
-                        inputClassName='border-2 p-2 rounded-xl border-blue-500'
-                        placeholder={'AAAAAAAAAAAAAAAAAAAAAAAA'}
-                        inputName=''
+                        labelText={'Nome Químico:'}
+                        type='text'
+                        divClassName='
+                                m-auto                                
+                                xl:m-auto
+                                md:m-auto                                
+                                w-full 
+                                xl:w-[60%] 
+                                md:w-[60%] 
+                                sm:w-full
+                            '
                     />
-
-                    {/* // * Preço e estoque */}
-                    <div className='flex items-center justify-center gap-5 w-[50%]'>
-                        {/* // ! IMPLEMENTAR MÁSCARA DE FORMATAÇÃO AO INPUT DE PREÇO */}
-                        <InputField
-                            label={'Preço'}
-                            type={'text'}
-                            containerClassName='w-full'
-                            labelClassName='text-xl font-bold'
-                            inputClassName='border-2 p-2 rounded-xl border-blue-500'
-                            placeholder={''}
-                            inputName=''
-                        />
-                        {/* // ! IMPEDIR O USUÁRIO DE INSERIR Nº NEGATIVO */}
-                        <InputField
-                            label={'Estoque'}
-                            type={'number'}
-                            containerClassName='w-full'
-                            labelClassName='text-xl font-bold'
-                            inputClassName='border-2 p-2 rounded-xl border-blue-500'
-                            placeholder={''}
-                            name=''
-                        />
-
-                    </div>
-
-                    {/* // * Lote */}
+                    <MaskedInput
+                        labelText={'Preço'}
+                        mask={'currency'}
+                        onValueChange={handleCurrencyChange}
+                        divClassName='
+                                m-auto                                
+                                xl:m-auto
+                                md:m-auto                                
+                                w-full 
+                                xl:w-[60%] 
+                                md:w-[60%] 
+                                sm:w-full
+                            '
+                    />
                     <InputField
-                        label={'Lote'}
-                        type={'text'}
-                        containerClassName='w-[50%]'
-                        labelClassName='text-xl font-bold'
-                        inputClassName='border-2 p-2 rounded-xl border-blue-500'
-                        placeholder={''}
-                        name=''
+                        labelText={'Estoque:'}
+                        type='number'
+                        divClassName='
+                                m-auto                                
+                                xl:m-auto
+                                md:m-auto                                
+                                w-full 
+                                xl:w-[60%] 
+                                md:w-[60%] 
+                                sm:w-full
+                            '
+                        min='0'
+                        onKeyDown={(e) => {
+                            if (e.key === '-' || e.key === 'e') {
+                                e.preventDefault();
+                            }
+                        }}
                     />
-
-                    {/* // * Descrição */}
+                    <InputField
+                        labelText={'Lote:'}
+                        type='text'
+                        divClassName='
+                                m-auto                                
+                                xl:m-auto
+                                md:m-auto                                
+                                w-full 
+                                xl:w-[60%] 
+                                md:w-[60%] 
+                                sm:w-full
+                            '
+                    />
+                    <InputField
+                        labelText={'Validade:'}
+                        type='date'
+                        divClassName='
+                                m-auto                                
+                                xl:m-auto
+                                md:m-auto                                
+                                w-full
+                                xl:w-[60%]
+                                md:w-[60%] 
+                                sm:w-full
+                            '
+                    />
                     {/* // ? Adicionar limite de caracteres? */}
                     <TextareaField
-                        label={'Descricao'}
-                        labelclassName={'w-[50%]'}
-                        inputclassName={'w-[50%]'}
-                        placeholder={''}
-                        name=''
+                        divClassName='
+                                m-auto                                
+                                xl:m-auto
+                                md:m-auto                                
+                                w-full 
+                                xl:w-[60%] 
+                                md:w-[60%] 
+                                sm:w-full
+                            '
+                        labelText={'Descrição:'}
                     />
 
-                    {/* // * Validade */}
-                    <InputField
-                        label={'Validade'}
-                        type={'date'}
-                        containerClassName='w-[50%]'
-                        labelClassName='text-xl font-bold'
-                        inputClassName='border-2 p-2 rounded-xl border-blue-500'
-                        placeholder={''}
-                        name=''
-                    />
 
-                    <PrimaryButton type='submit' className='w-[50%]'>
-                        <span className='text-xl'>
-                            Editar este produto
+                    <PrimaryButton type='submit' className='xl:w-[60%] md:w-full sm:w-full w-full mx-auto mt-8'>
+                        <span className=''>
+                            Adicionar produto
                         </span>
                     </PrimaryButton>
-                </NewProdutoForm>
-            </GenericContainer>
-        </div>
+                </CardContainer>
+            </div>
+        </>
     )
 }
 

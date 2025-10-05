@@ -42,7 +42,7 @@ function TabelaEstoque({ dados, onEdit, onDelete }) {
                                     <a
                                         href='/editar-produto'
                                         onClick={() => onEdit(item)}
-                                        className="text-blue-600 hover:text-blue-800"
+                                        className="text-primaryBlue hover:text-blue-800"
                                     >
                                         <FontAwesomeIcon icon={faEdit} />
                                     </a>

@@ -1,4 +1,3 @@
-import './App.css'
 import Landing from './Pages/Landing.jsx'
 import HomeClientes from './Pages/HomeClientes.jsx'
 import CadastroClientes from './Pages/auth/Clientes/CadastroClientes.jsx'

@@ -72,16 +72,7 @@ function EditarProduto() {
                         )}
                         <label
                             htmlFor="fileInput"
-                            className="
-                                bg-blue-500 
-                                text-white 
-                                rounded 
-                                cursor-pointer 
-                                hover:bg-blue-600 
-                                p-3 
-                                mt-5
-                                text-md
-                            "
+                            className="bg-blue-500 text-white rounded cursor-pointer hover:bg-primaryBlue p-3 mt-5"
                         >
                             Escolher imagem do produto
                         </label>

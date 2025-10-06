@@ -23,12 +23,14 @@ const App = () => {
     <div>      
       <Routes>
         <Route path='/' element={<Landing />} />
+        
         <Route path='/login/clientes' element={<LoginClientes />} />
         <Route path='/cadastro/clientes' element={<CadastroClientes />} />
         <Route path='/home/clientes' element={<HomeClientes />} />
         
         <Route path='/login/lojas' element={<LoginLojas />} />
         <Route path='/cadastro/lojas' element={<CadastroLojas />} />
+
         <Route path='/home/lojas' element={<HomeLojas />} />
         <Route path='/estoque' element={<Estoque />} />
         

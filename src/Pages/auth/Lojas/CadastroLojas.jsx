@@ -1,10 +1,9 @@
-import { NavbarNotSignedLojas } from "../../../Components/Navbar"
+
 
 function CadastroLojas() {
     return (
         <div>
-            <NavbarNotSignedLojas linkType={'login'} />
-            <h1>Cadastro lojas</h1>
+            <h1>Cadastro de lojas</h1>
         </div>
     )
 }

@@ -18,3 +18,11 @@ export const IconTabLink = ({ text, url, icon, className, iconclassName,...props
         </a>
     )
 }
+
+export const GenericLink = ({ url, className, children }) => {
+    return (
+        <a href={url} className={` text-blue-500 underline ${className}`}>
+            {children}
+        </a>
+    )
+}

@@ -2,9 +2,7 @@ import React from 'react'
 
 function GenericContainer({ children, className }) {
     return (
-        <div
-            className={`flex flex-col flex-1 h-full w-full p-5 ${className}`}
-        >
+        <div className={`flex flex-col flex-1 h-full w-full p-5 ${className}`}>
             {children}
         </div>
     )

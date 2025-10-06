@@ -78,7 +78,7 @@ export const InputField = ({ labelText, labelClassName, name, inputClassName, di
           p-2 
           rounded-xl
           ${inputClassName}
-        `}
+        `}        
         name={name}
         {...props}
       />

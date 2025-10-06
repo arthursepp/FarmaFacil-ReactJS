@@ -128,6 +128,7 @@ export const SecondaryButton = ({ children, link, url, className, ...props }) =>
                 cursor-pointer
                 rounded-xl
                 mt-2
+                text-center
                 hover:bg-blue-500
                 hover:text-white
                 ${className}

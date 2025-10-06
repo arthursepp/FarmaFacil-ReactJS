@@ -15,10 +15,10 @@ function Landing() {
             </div>
 
             <div className='flex flex-col items-center justify-center'>
-                <PrimaryButton link={true} className='w-full xl:w-[35%] md:w-[50%] sm:w-full'>
+                <PrimaryButton link={true} url='/login/clientes' className='w-full xl:w-[35%] md:w-[50%] sm:w-full'>
                     <span>Sim, já tenho conta</span>
                 </PrimaryButton>
-                <SecondaryButton link={true} className='w-full xl:w-[35%] md:w-[50%] sm:w-full'>
+                <SecondaryButton link={true} className='w-full xl:w-[35%] md:w-[50%] sm:w-full' url='/cadastro/clientes'>
                     <span>Não, não tenho conta</span>
                 </SecondaryButton>
             </div>

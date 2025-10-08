@@ -54,8 +54,7 @@ const MaskedInput = ({ labelText, labelClassName, name, inputClassName, divClass
           border-blue-500 
           p-2 
           rounded-xl 
-          focus:outline-none 
-          focus:border-blue-700
+          focus:outline-none          
           ${inputClassName}
         `}
         value={value}
@@ -75,6 +74,7 @@ export const InputField = ({ labelText, labelClassName, name, inputClassName, di
         className={`
           border-2 
           border-blue-500 
+          focus:outline-none
           p-2 
           rounded-xl
           ${inputClassName}

@@ -22,26 +22,34 @@ function ConfiguracoesLoja() {
 
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
-  function handleConfirmDelete() {
+  const handleConfirmDelete = async () => {
     setShowModal(false)
-    navigate('/') // redireciona para a rota /
+    try {
+      const id = await localStorage.getItem('id_farmacia')
+      api.delete(`farma/${id}`)
+      alert('Sua conta foi excluída com sucesso.')
+      localStorage.removeItem('id_farmacia')
+      localStorage.removeItem('token')
+      navigate('/')
+    } catch (error) {
+      alert(`Não foi possível deletar sua conta: ${error}`)
+    } finally {
+      setLoading(false)
+    }
   }
 
   function handleLogout() {
-    setLoading(true)
+    setDeleteLoading(true)
     localStorage.removeItem('token')
     localStorage.removeItem('id_farmacia')
-    setLoading(false)
+    setDeleteLoading(false)
     navigate('/')
   }
 
   const carregarDados = async () => {
-    try {
-      if (!token || !id) {
-        alert('Token ou id da farmácia não encontrados.')
-        return
-      }
+    try {      
 
       const response = await api.get(`/farma/${id}`, {
         headers: {
@@ -54,11 +62,11 @@ function ConfiguracoesLoja() {
         setCnpj(dados.cnpj)
         setNome(dados.nome)
         setEmail(dados.email)
-        setEndereco(`${dados.rua}, ${dados.numero} - ${dados.bairro}`)
+        setEndereco(`${dados.rua}, ${dados.numero} - ${dados.bairro}, ${dados.cidade}`)
         if (dados.complemento) {
           setComplemento(dados.complemento)
         } else {
-          setComplemento('N/A')
+          setComplemento('Nenhum')
         }
       }
     } catch (error) {
@@ -128,7 +136,7 @@ function ConfiguracoesLoja() {
           rightBtnClassName="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
           leftBtnClassName="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
           loading={loading}
-          confirmText="Sim, deletar"
+          confirmText={ deleteLoading ? 'Carregando...' : 'Sim, deletar'  }
           cancelText="Não, voltar"
         >
           <p className="text-gray-600">

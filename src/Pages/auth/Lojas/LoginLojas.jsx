@@ -45,9 +45,7 @@ function LoginLojas() {
         } finally {
             setLoading(false)
         }
-    }
-
-    console.log(cnpj)
+    }    
 
     return (
         <GenericContainer className='p-5'>

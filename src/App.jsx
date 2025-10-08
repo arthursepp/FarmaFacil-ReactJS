@@ -17,32 +17,92 @@ import EditarLoja from './Pages/Lojas/EditarLoja.jsx'
 import DetalhesPedidoLoja from './Pages/Lojas/Pedidos/DetalhesPedidoLoja.jsx'
 
 import { Routes, Route } from 'react-router-dom'
+import ProtectedRoute from './Components/ProtectedRoute.jsx'
 
 const App = () => {
+
+  const validator = 'token'
+
   return (
-    <div>      
+    <div>
       <Routes>
         <Route path='/' element={<Landing />} />
-        
+
         <Route path='/login/clientes' element={<LoginClientes />} />
         <Route path='/cadastro/clientes' element={<CadastroClientes />} />
-        
+
         <Route path='/home/clientes' element={<HomeClientes />} />
-        
+
         <Route path='/login/lojas' element={<LoginLojas />} />
         <Route path='/cadastro/lojas' element={<CadastroLojas />} />
 
-        <Route path='/home/lojas' element={<HomeLojas />} />
-        <Route path='/estoque' element={<Estoque />} />
-        
-        <Route path='/configuracoes/lojas' element={<ConfiguracoesLoja />} />
-        <Route path='/editar/lojas' element={<EditarLoja />} />
-        
-        <Route path='/adicionar-produto' element={<AdicionarProduto />} />
-        <Route path='/editar-produto' element={<EditarProduto />} />
-        
-        <Route path='/pedidos/lojas' element={<PedidosLoja />} />
-        <Route path='/pedidos/lojas/detalhes' element={<DetalhesPedidoLoja />} />
+        <Route
+          path='/home/lojas'
+          element={
+            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
+              <HomeLojas />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/estoque'
+          element={
+            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
+              <Estoque />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/configuracoes/lojas'
+          element={
+            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
+              <ConfiguracoesLoja />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/editar/lojas'
+          element={
+            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
+              <EditarLoja />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/adicionar-produto'
+          element={
+            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
+              <AdicionarProduto />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/editar-produto'
+          element={
+            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
+              <EditarProduto />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route 
+          path='/pedidos/lojas' 
+          element={
+            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
+              <PedidosLoja />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path='/pedidos/lojas/detalhes' 
+          element={
+            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
+              <DetalhesPedidoLoja />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
     </div>

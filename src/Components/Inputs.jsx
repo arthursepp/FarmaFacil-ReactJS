@@ -7,8 +7,8 @@ import {
   MaskCNPJ
 } from '../utils/masks';
 
-const MaskedInput = ({ labelText, labelClassName, name, inputClassName, divClassName, mask, onValueChange, ...props }) => {
-  const [value, setValue] = useState('');
+const MaskedInput = ({ labelText, labelClassName, name, inputClassName, divClassName, mask, value: propValue, onValueChange, ...props }) => {
+  const [value, setValue] = useState(propValue || '');
 
   const handleChange = (e) => {
     let inputValue = e.target.value;

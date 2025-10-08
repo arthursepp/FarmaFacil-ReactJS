@@ -7,18 +7,66 @@ import { Header, SecondaryText, TerciaryText } from '../../Components/Titles'
 import { faPencil, faSignOut, faTrash, faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GenericModal from '../../Components/Modals'
-import {InputField} from '../../Components/Inputs'
+import { InputField } from '../../Components/Inputs'
+import api from '../../services/api'
 
 function ConfiguracoesLoja() {
-  const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
+  const id = localStorage.getItem('id_farmacia')
+  const token = localStorage.getItem('token')
+  const [cnpj, setCnpj] = useState('')
+  const [nome, setNome] = useState('')
+  const [email, setEmail] = useState('')
+  const [endereco, setEndereco] = useState('')
+  const [complemento, setComplemento] = useState('')
 
+  const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(false)
 
   function handleConfirmDelete() {
     setShowModal(false)
     navigate('/') // redireciona para a rota /
   }
+
+  function handleLogout() {
+    setLoading(true)
+    localStorage.removeItem('token')
+    localStorage.removeItem('id_farmacia')
+    setLoading(false)
+    navigate('/')
+  }
+
+  const carregarDados = async () => {
+    try {
+      if (!token || !id) {
+        alert('Token ou id da farmácia não encontrados.')
+        return
+      }
+
+      const response = await api.get(`/farma/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      const dados = response.data?.farma
+      if (dados) {
+        setCnpj(dados.cnpj)
+        setNome(dados.nome)
+        setEmail(dados.email)
+        setEndereco(`${dados.rua}, ${dados.numero} - ${dados.bairro}`)
+        if (dados.complemento) {
+          setComplemento(dados.complemento)
+        } else {
+          setComplemento('N/A')
+        }
+      }
+    } catch (error) {
+      alert(`Não foi possível buscar as informações: ${error}`)
+    }
+  }
+
+  carregarDados()
 
   return (
     <>
@@ -32,17 +80,20 @@ function ConfiguracoesLoja() {
             mt-3 
             xl:max-h-[450px]
             md:max-h-[450px]
-            max-h-[450px]
+            max-h-[460px]
             overflow-y-auto
             gap-5
           '
         >
           <ul className='flex flex-col gap-3'>
-            <li><span>Nome: {'{Nome do usuário}'}</span></li>
-            <li><span>E-mail: {'{E-mail do usuário}'}</span></li>
-            <li><span>Telefone: {'{Telefone do usuário}'}</span></li>
-            <li><span>Endereço: {'{Endereço do usuário}'}</span></li>
-            <li><span>Complemento: {'{Complemento do endereço}'}</span></li>
+            <li><span>Cnpj: {cnpj}</span></li>
+            <li><span>Nome: {nome}</span></li>
+            <li><span>E-mail: {email}</span></li>
+            <li className='flex flex-col'>
+              <span>Endereço:</span>
+              <span>{endereco}</span>
+            </li>
+            <li><span>Complemento: {complemento}</span></li>
           </ul>
           <hr className='border-slate-400' />
           <div className='flex flex-col w-full xl:w-[75%] md:w-[70%] m-auto'>
@@ -52,8 +103,8 @@ function ConfiguracoesLoja() {
               <FontAwesomeIcon icon={faPencil} />
             </PrimaryButton>
 
-            <SecondaryDangerButton className='flex items-center gap-3 justify-center'>
-              <span>Sair</span>
+            <SecondaryDangerButton className='flex items-center gap-3 justify-center' onClick={handleLogout}>
+              <span>{loading ? 'Carregando...' : 'Sair'}</span>
               <FontAwesomeIcon icon={faSignOut} />
             </SecondaryDangerButton>
 

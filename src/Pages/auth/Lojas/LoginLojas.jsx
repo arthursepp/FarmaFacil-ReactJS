@@ -20,8 +20,8 @@ function LoginLojas() {
 
     const handleLogin = async (e) => {
         e.preventDefault()
-        
-        if(!cnpj || !email || !senha) {
+
+        if (!cnpj || !email || !senha) {
             setError('Todos os campos são obrigatórios!')
             alert(error)
             return
@@ -39,7 +39,7 @@ function LoginLojas() {
             } else {
                 setError(response.data?.msg || 'Erro ao fazer login')
             }
-        } catch(error) {
+        } catch (error) {
             console.log(`Não foi possível fazer login: ${error}`)
             return
         } finally {
@@ -47,25 +47,35 @@ function LoginLojas() {
         }
     }
 
+    console.log(cnpj)
+
     return (
         <GenericContainer className='p-5'>
             <ReturnButton />
             <GenericContainer className='justify-center items-center'>
-                <AuthForm 
+                <AuthForm
                     divClassName='
                         p-5 
                         w-full 
                         xl:w-[50%] 
                         md:w-[50%] 
                         sm:w-full
-                    ' 
+                    '
                     formClassName={'gap-3'}
                     onSubmit={handleLogin}
                 >
                     <SecondaryText text='Login' className='text-center' />
                     <InputField labelText='E-mail' type='email' required value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <MaskedInput labelText='CNPJ' mask={'cnpj'} maxLength={18} required value={cnpj} onChange={(e) => setCnpj(e.target.value)} />
-                    <InputField labelText='Senha' type='password' required  value={senha} onChange={(e) => setSenha(e.target.value)} />
+                    <MaskedInput 
+                        labelText='CNPJ' 
+                        mask={'cnpj'} 
+                        maxLength={18} 
+                        required 
+                        value={cnpj} 
+                        onValueChange={
+                            (cleanValue, maskedValue) => setCnpj(cleanValue)} 
+                    />
+                    <InputField labelText='Senha' type='password' required value={senha} onChange={(e) => setSenha(e.target.value)} />
                     <div className='flex flex-col items-center justify-center mt-5 gap-5'>
                         <PrimaryButton className='w-full xl:w-[60%]' type='submit' disabled={loading}>
                             <span>{loading ? 'Carregando...' : 'Login'}</span>

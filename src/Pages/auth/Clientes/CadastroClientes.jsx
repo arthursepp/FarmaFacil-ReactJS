@@ -10,7 +10,7 @@ function CadastroClientes() {
       <ReturnButton />
       <div className='flex flex-col items-center justify-center mt-4'>
         <AuthForm divClassName='p-5 w-full xl:w-[50%] md:w-[50%] sm:w-full' formClassName={'gap-3'}>
-          <SecondaryText text='Login' className='text-center' />
+          <SecondaryText text='Cadastro' className='text-center' />
           <InputField labelText='E-mail' type='email' required />
           <InputField labelText='Senha' type='password' required />
           <InputField labelText='Confirme a senha' type='password' required />

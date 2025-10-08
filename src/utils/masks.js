@@ -1,4 +1,3 @@
-// utils/masks.js
 
 export const MaskCurrency = (value) => {
     if (!value) return '';
@@ -38,7 +37,6 @@ export const MaskCPF = (value) => {
     return value;
 };
 
-// 🧾 NOVA: CNPJ
 export const MaskCNPJ = (value) => {
     if (!value) return '';
     value = value.replace(/\D/g, '');

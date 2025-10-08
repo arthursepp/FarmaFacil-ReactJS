@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'https://api-cadastro-farmacias.onrender.com',
-    localURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3000/', // ! MUDAR PARA URL DO RENDER
 })
 
 export const viacep = axios.create({

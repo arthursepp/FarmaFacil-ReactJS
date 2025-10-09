@@ -31,7 +31,7 @@ function LoginLojas() {
 
         try {
             const response = await api.post('farma/auth/login', { cnpj, email, senha })
-            localStorage.setItem('token', response.data.token)
+            localStorage.setItem('tokenLoja', response.data.token)
             localStorage.setItem('id_farmacia', response.data.farma_id)
 
             if (response.data?.token) {

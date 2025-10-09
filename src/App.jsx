@@ -17,92 +17,84 @@ import EditarLoja from './Pages/Lojas/EditarLoja.jsx'
 import DetalhesPedidoLoja from './Pages/Lojas/Pedidos/DetalhesPedidoLoja.jsx'
 
 import { Routes, Route } from 'react-router-dom'
-import ProtectedRoute from './Components/ProtectedRoute.jsx'
+import { ExclusiveRoute, ProtectedRoute, PublicRoute, SmartLanding } from './Components/RoutesComponent.jsx'
 
 const App = () => {
 
-  const validator = 'token'
+  const validator = 'tokenLoja'
 
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Landing />} />
-
-        <Route path='/login/clientes' element={<LoginClientes />} />
-        <Route path='/cadastro/clientes' element={<CadastroClientes />} />
-
-        <Route path='/home/clientes' element={<HomeClientes />} />
-
-        <Route path='/login/lojas' element={<LoginLojas />} />
-        <Route path='/cadastro/lojas' element={<CadastroLojas />} />
+        <Route path='/' element={<SmartLanding><Landing /></SmartLanding>} />
 
         <Route
-          path='/home/lojas'
+          path='/login/clientes'
           element={
-            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
-              <HomeLojas />
-            </ProtectedRoute>
+            <PublicRoute storageKey={validator} redirectTo='/home/clientes'>
+              <LoginClientes />
+            </PublicRoute>
           }
         />
-        <Route
-          path='/estoque'
-          element={
-            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
-              <Estoque />
-            </ProtectedRoute>
-          }
-        />
+        {/* Rotas Públicas - Clientes */}
+        <Route path='/login/clientes' element={<PublicRoute><LoginClientes /></PublicRoute>} />
+        <Route path='/cadastro/clientes' element={<PublicRoute><CadastroClientes /></PublicRoute>} />
 
-        <Route
-          path='/configuracoes/lojas'
-          element={
-            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
-              <ConfiguracoesLoja />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='/editar/lojas'
-          element={
-            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
-              <EditarLoja />
-            </ProtectedRoute>
-          }
-        />
 
-        <Route
-          path='/adicionar-produto'
-          element={
-            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
-              <AdicionarProduto />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='/editar-produto'
-          element={
-            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
-              <EditarProduto />
-            </ProtectedRoute>
-          }
-        />
+        {/* Home Clientes (Protegido) */}
+        <Route path='/home/clientes' element={
+          <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+            <HomeClientes />
+          </ExclusiveRoute>
+        } />
 
-        <Route 
-          path='/pedidos/lojas' 
-          element={
-            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
-              <PedidosLoja />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path='/pedidos/lojas/detalhes' 
-          element={
-            <ProtectedRoute storageKey={validator} redirectTo='/login/lojas'>
-              <DetalhesPedidoLoja />
-            </ProtectedRoute>
-          }
-        />
+
+        {/* Rotas Públicas - Lojas */}
+        <Route path='/login/lojas' element={<PublicRoute><LoginLojas /></PublicRoute>} />
+        <Route path='/cadastro/lojas' element={<PublicRoute><CadastroLojas /></PublicRoute>} />
+
+
+        {/* Home Lojas (Protegido) */}
+        <Route path='/home/lojas' element={
+          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+            <HomeLojas />
+          </ExclusiveRoute>
+        } />
+        <Route path='/estoque' element={
+          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+            <Estoque />
+          </ExclusiveRoute>
+        } />
+        <Route path='/configuracoes/lojas' element={
+          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+            <ConfiguracoesLoja />
+          </ExclusiveRoute>
+        } />
+        <Route path='/editar/lojas' element={
+          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+            <EditarLoja />
+          </ExclusiveRoute>
+        } />
+        <Route path='/adicionar-produto' element={
+          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+            <AdicionarProduto />
+          </ExclusiveRoute>
+        } />
+        <Route path='/editar-produto' element={
+          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+            <EditarProduto />
+          </ExclusiveRoute>
+        } />
+        <Route path='/pedidos/lojas' element={
+          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+            <PedidosLoja />
+          </ExclusiveRoute>
+        } />
+        <Route path='/pedidos/lojas/detalhes' element={
+          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+            <DetalhesPedidoLoja />
+          </ExclusiveRoute>
+        } />
 
       </Routes>
     </div>

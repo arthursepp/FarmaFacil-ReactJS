@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PrimaryButton, PrimaryDangerButton, SecondaryDangerButton } from '../../Components/Buttons'
 import { CardContainer } from '../../Components/Containers'
@@ -13,7 +13,7 @@ import api from '../../services/api'
 function ConfiguracoesLoja() {
   const navigate = useNavigate()
   const id = localStorage.getItem('id_farmacia')
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('tokenLoja')
   const [cnpj, setCnpj] = useState('')
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
@@ -31,7 +31,7 @@ function ConfiguracoesLoja() {
       api.delete(`farma/${id}`)
       alert('Sua conta foi excluída com sucesso.')
       localStorage.removeItem('id_farmacia')
-      localStorage.removeItem('token')
+      localStorage.removeItem('tokenLoja')
       navigate('/')
     } catch (error) {
       alert(`Não foi possível deletar sua conta: ${error}`)
@@ -42,7 +42,7 @@ function ConfiguracoesLoja() {
 
   function handleLogout() {
     setDeleteLoading(true)
-    localStorage.removeItem('token')
+    localStorage.removeItem('tokenLoja')
     localStorage.removeItem('id_farmacia')
     setDeleteLoading(false)
     navigate('/')
@@ -74,7 +74,9 @@ function ConfiguracoesLoja() {
     }
   }
 
-  carregarDados()
+  useEffect(() => {
+    carregarDados()
+  }, [])
 
   return (
     <>

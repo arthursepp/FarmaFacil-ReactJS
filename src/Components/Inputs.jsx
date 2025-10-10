@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MaskCurrency,
   MaskPhone,
@@ -7,11 +7,50 @@ import {
   MaskCNPJ
 } from '../utils/masks';
 
-const MaskedInput = ({ labelText, labelClassName, name, inputClassName, divClassName, mask, value: propValue, onValueChange, ...props }) => {
-  const [value, setValue] = useState(propValue || '');
+const MaskedInput = ({
+  labelText,
+  labelClassName,
+  name,
+  inputClassName,
+  divClassName,
+  mask,
+  value: propValue = '',
+  onValueChange,
+  ...props
+}) => {
+  const [value, setValue] = useState('');
+
+  // Aplica a máscara ao valor vindo da API (propValue)
+  useEffect(() => {
+    if (propValue !== undefined && propValue !== null) {
+      let maskedValue = propValue.toString();
+
+      switch (mask) {
+        case 'currency':
+          maskedValue = MaskCurrency(maskedValue);
+          break;
+        case 'phone':
+          maskedValue = MaskPhone(maskedValue);
+          break;
+        case 'cep':
+          maskedValue = MaskCEP(maskedValue);
+          break;
+        case 'cpf':
+          maskedValue = MaskCPF(maskedValue);
+          break;
+        case 'cnpj':
+          maskedValue = MaskCNPJ(maskedValue);
+          break;
+        default:
+          break;
+      }
+
+      setValue(maskedValue);
+    }
+  }, [propValue, mask]);
 
   const handleChange = (e) => {
-    let inputValue = e.target.value;
+    const inputValue = e.target.value;
     let maskedValue = inputValue;
 
     switch (mask) {
@@ -36,29 +75,32 @@ const MaskedInput = ({ labelText, labelClassName, name, inputClassName, divClass
 
     setValue(maskedValue);
 
-    // valor "limpo" sem formatação
+    // valor limpo sem formatação
     const cleanValue = maskedValue.replace(/\D/g, '');
 
-    // callback opcional para o pai (ex: react-hook-form)
     if (onValueChange) onValueChange(cleanValue, maskedValue);
   };
 
   return (
     <div className={`flex flex-col gap-2 ${divClassName}`}>
-      <label htmlFor={name} className={`text-xl ${labelClassName}`}>{labelText}</label>
+      {labelText && (
+        <label htmlFor={name} className={`text-xl ${labelClassName}`}>
+          {labelText}
+        </label>
+      )}
       <input
         id={name}
         name={name}
+        value={value}
+        onChange={handleChange}
         className={`
           border-2 
           border-blue-500 
           p-2 
           rounded-xl 
-          focus:outline-none          
+          focus:outline-none
           ${inputClassName}
         `}
-        value={value}
-        onChange={handleChange}
         {...props}
       />
     </div>
@@ -78,7 +120,7 @@ export const InputField = ({ labelText, labelClassName, name, inputClassName, di
           p-2 
           rounded-xl
           ${inputClassName}
-        `}        
+        `}
         name={name}
         {...props}
       />

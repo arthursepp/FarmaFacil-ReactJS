@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GenericModal from '../../Components/Modals'
 import { InputField } from '../../Components/Inputs'
 import api from '../../services/api'
+import { MaskCNPJ } from '../../utils/masks'
 
 function ConfiguracoesLoja() {
   const navigate = useNavigate()
@@ -96,7 +97,7 @@ function ConfiguracoesLoja() {
           '
         >
           <ul className='flex flex-col gap-3'>
-            <li><span>Cnpj: {cnpj}</span></li>
+            <li><span>Cnpj: {MaskCNPJ(cnpj)}</span></li>
             <li><span>Nome: {nome}</span></li>
             <li><span>E-mail: {email}</span></li>
             <li className='flex flex-col'>

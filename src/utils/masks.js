@@ -24,9 +24,15 @@ export const MaskPhone = (value) => {
 
 export const MaskCEP = (value) => {
     if (!value) return '';
-    value = value.replace(/\D/g, '');
-    return value.replace(/^(\d{5})(\d{0,3}).*/, '$1-$2');
+    value = value.replace(/\D/g, ''); // remove tudo que não for número
+    value = value.slice(0, 8); // limita a 8 dígitos
+
+    if (value.length > 5) {
+        return value.replace(/^(\d{5})(\d{0,3})$/, '$1-$2');
+    }
+    return value;
 };
+
 
 export const MaskCPF = (value) => {
     if (!value) return '';

@@ -69,7 +69,7 @@ function LoginLojas() {
                         mask={'cnpj'} 
                         maxLength={18} 
                         required 
-                        value={cnpj} 
+                        value={cnpj}
                         onValueChange={
                             (cleanValue, maskedValue) => setCnpj(cleanValue)} 
                     />

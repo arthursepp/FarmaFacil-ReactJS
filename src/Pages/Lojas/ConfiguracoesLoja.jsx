@@ -50,7 +50,7 @@ function ConfiguracoesLoja() {
   }
 
   const carregarDados = async () => {
-    try {      
+    try {
 
       const response = await api.get(`/farma/${id}`, {
         headers: {
@@ -97,12 +97,12 @@ function ConfiguracoesLoja() {
           '
         >
           <ul className='flex flex-col gap-3'>
-            <li><span>Cnpj: {MaskCNPJ(cnpj)}</span></li>
-            <li><span>Nome: {nome}</span></li>
-            <li><span>E-mail: {email}</span></li>
+            <li><span>Cnpj: {cnpj ? MaskCNPJ(cnpj) : 'Carregando'}</span></li>
+            <li><span>Nome: {nome ? nome : 'Carregando'}</span></li>
+            <li><span>E-mail: {email ? email : 'Carregando'}</span></li>
             <li className='flex flex-col'>
               <span>Endereço:</span>
-              <span>{endereco}</span>
+              <span>{endereco ? endereco : 'Carregando'}</span>
             </li>
             <li><span>Complemento: {complemento}</span></li>
           </ul>
@@ -138,8 +138,8 @@ function ConfiguracoesLoja() {
           title="Tem certeza que deseja deletar sua conta?"
           rightBtnClassName="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
           leftBtnClassName="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
-          loading={loading}
-          confirmText={ deleteLoading ? 'Carregando...' : 'Sim, deletar'  }
+          loading={deleteLoading}
+          confirmText={deleteLoading ? 'Carregando...' : 'Sim, deletar'}
           cancelText="Não, voltar"
         >
           <p className="text-gray-600">

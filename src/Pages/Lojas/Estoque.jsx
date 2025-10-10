@@ -1,351 +1,44 @@
-import { PrimaryButton, PrimaryDangerButton, ReturnButton, SecondaryButton } from '../../Components/Buttons'
+import { useState, useEffect } from 'react'
+
+import { ReturnButton, SecondaryButton } from '../../Components/Buttons'
 import GenericContainer from '../../Components/Containers'
 import { Header } from '../../Components/Titles'
-import { faPills, faPlus, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
-import TabelaEstoque from '../../Components/Tables'
+import { faPills, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Footer from '../../Components/Footer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Estoque() {
+import api from '../../services/api'
 
-    const medicamentos = [
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-        {
-            _id: { $oid: "68ddb99b39a3a5b9a0156a48" },
-            nome: "Dipirona",
-            nome_quimico: "Metamizol sódico",
-            preco: { $numberDouble: "12.99" },
-            quantidade: { $numberInt: "50" },
-            validade: "2026-08-30",
-            lote: "DIP1234",
-            label: "Analgésico e Antipirético",
-            imagem_url:
-                "https://drive.google.com/uc?id=18ZOfpDM2g4R9d7v28wr2XK2K3N9ttbjL",
-        },
-    ];
+import TabelaEstoque from '../../Components/Tables'
+
+function Estoque() {    
+
+    const id = localStorage.getItem('id_farmacia')
+    const [medicamentos, setMedicamentos] = useState([])
+
+    const carregarProdutos = async () => {
+        try {
+            const response = await api.get(`/produtos/farmacia/${id}`)
+
+            if (!response.data) {
+                alert('Não foi possível buscar os dados.')
+                return
+            }
+
+            const data = response.data            
+            
+            setMedicamentos(data)
+            
+        } catch (error) {
+            alert(`Não foi possível buscar os seus produtos: ${error}`)
+        }
+    }
+
+    useEffect(() => {
+        carregarProdutos()
+    }, [])
+
+    console.log(medicamentos)
 
     const handleEdit = (item) => {
         console.log("Editar:", item);
@@ -355,11 +48,11 @@ function Estoque() {
     const handleDelete = (item) => {
         console.log("Excluir:", item);
         // aqui você pode chamar sua API de delete
-    };
+    };    
 
     return (
         <>
-            <div className='p-5'>
+            <GenericContainer>
                 <ReturnButton />
                 <div className='flex items-center justify-between'>
                     <Header text={'Estoque'} divClassName={'mt-2'} icon={faPills} iconClassName={'text-2xl'} />
@@ -367,7 +60,8 @@ function Estoque() {
                         <span className='hidden sm:hidden md:block xl:block'>Adicionar produto</span>
                         <FontAwesomeIcon icon={faPlus} />
                     </SecondaryButton>
-                </div>
+                </div>               
+                
 
                 <TabelaEstoque
                     dados={medicamentos}
@@ -375,7 +69,7 @@ function Estoque() {
                     onDelete={handleDelete}
                 />
 
-            </div>
+            </GenericContainer>
             <Footer type='loja' className='fixed' />
         </>
     )

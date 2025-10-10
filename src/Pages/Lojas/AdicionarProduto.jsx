@@ -29,7 +29,11 @@ function AdicionarProduto() {
     }
 
     const handleCurrencyChange = (clean, formatted) => {
-        setPreco(clean)
+        let precoDecimal = ''
+        if (clean.length > 0) {
+            precoDecimal = (Number(clean) / 100).toFixed(2)
+        }
+        setPreco(precoDecimal)
     }
 
     function handleEstoqueChange(e) {
@@ -47,6 +51,12 @@ function AdicionarProduto() {
         const id_farmacia = localStorage.getItem('id_farmacia')
         if (!id_farmacia) {
             setError('Farmácia não identificada.')
+            setLoading(false)
+            return
+        }
+
+        if (!fileObj) {
+            setError('Selecione a imagem do produto!')
             setLoading(false)
             return
         }
@@ -84,7 +94,7 @@ function AdicionarProduto() {
             setFile(null)
             setFileObj(null)
         } catch (err) {
-            setError('Erro ao cadastrar produto')
+            setError(`Erro ao cadastrar produto ${err}`)
         } finally {
             setLoading(false)
         }
@@ -109,6 +119,7 @@ function AdicionarProduto() {
                                 accept="image/*"
                                 className="hidden"
                                 onChange={handleChange}
+                                name='imagem'                                
                             />
                             {file && (
                                 <div className="mt-4">
@@ -282,7 +293,7 @@ function AdicionarProduto() {
                             />
                         </div>
 
-                        {error && <div className="text-red-500 mt-2">{error}</div>}
+                        {error && <div className="text-center text-red-500 mt-2">{error}</div>}
                         {success && <div className="text-center text-green-500 mt-2">{success}</div>}
                         <PrimaryButton type='submit' className='xl:w-[60%] md:w-full sm:w-full w-full mx-auto mt-7' disabled={loading}>
                             <span>

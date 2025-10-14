@@ -24,6 +24,16 @@ export const ExclusiveRoute = ({ children, onlyKey, redirectTo }) => {
     return children
 }
 
+export const ProductRoute = ({ children, redirectTo }) => {
+    const tokenLoja = localStorage.getItem('tokenLoja')
+    const idProduto = localStorage.getItem('id_produto')
+
+    if (!tokenLoja) return <Navigate to='/login/lojas' replace />
+
+    if (!idProduto) return <Navigate to={redirectTo} replace />
+
+    return children
+}
 
 export const SmartLanding = ({ children }) => {
     const tokenCliente = localStorage.getItem('tokenCliente')

@@ -41,8 +41,8 @@ function Estoque() {
     console.log(medicamentos)
 
     const handleEdit = (item) => {
-        console.log("Editar:", item);
-        // aqui você pode abrir um modal para editar
+        localStorage.setItem('id_produto', item._id)
+        window.location.href= '/editar-produto'
     };
 
     const handleDelete = (item) => {

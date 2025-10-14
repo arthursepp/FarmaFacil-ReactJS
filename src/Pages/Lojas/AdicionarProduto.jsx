@@ -276,21 +276,7 @@ function AdicionarProduto() {
                                 '
                                 value={label}
                                 onChange={e => setLabel(e.target.value)}
-                            />
-                            <TextareaField
-                                divClassName='
-                                    m-auto                                
-                                    xl:m-auto
-                                    md:m-auto                                
-                                    w-full 
-                                    xl:w-[60%] 
-                                    md:w-[60%] 
-                                    sm:w-full
-                                '
-                                labelText={'Descrição:'}
-                                value={descricao}
-                                onChange={e => setDescricao(e.target.value)}
-                            />
+                            />                            
                         </div>
 
                         {error && <div className="text-center text-red-500 mt-2">{error}</div>}

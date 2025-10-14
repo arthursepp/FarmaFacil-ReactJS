@@ -10,6 +10,7 @@ export const ReturnButton = () => {
     const navigate = useNavigate()
 
     const voltar = () => {
+        if (localStorage.getItem('id_produto')) localStorage.removeItem('id_produto')
         navigate(-1)
     }
 

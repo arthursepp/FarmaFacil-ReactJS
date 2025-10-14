@@ -17,7 +17,7 @@ import EditarLoja from './Pages/Lojas/EditarLoja.jsx'
 import DetalhesPedidoLoja from './Pages/Lojas/Pedidos/DetalhesPedidoLoja.jsx'
 
 import { Routes, Route } from 'react-router-dom'
-import { ExclusiveRoute, ProtectedRoute, PublicRoute, SmartLanding } from './Components/RoutesComponent.jsx'
+import { ExclusiveRoute, ProductRoute, ProtectedRoute, PublicRoute, SmartLanding } from './Components/RoutesComponent.jsx'
 
 const App = () => {
 
@@ -53,7 +53,6 @@ const App = () => {
         <Route path='/login/lojas' element={<PublicRoute><LoginLojas /></PublicRoute>} />
         <Route path='/cadastro/lojas' element={<PublicRoute><CadastroLojas /></PublicRoute>} />
 
-
         {/* Home Lojas (Protegido) */}
         <Route path='/home/lojas' element={
           <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
@@ -81,9 +80,9 @@ const App = () => {
           </ExclusiveRoute>
         } />
         <Route path='/editar-produto' element={
-          <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>
+          <ProductRoute onlyKey='tokenLoja' redirectTo='/estoque'>
             <EditarProduto />
-          </ExclusiveRoute>
+          </ProductRoute>
         } />
         <Route path='/pedidos/lojas' element={
           <ExclusiveRoute onlyKey='tokenLoja' redirectTo='/login/lojas'>

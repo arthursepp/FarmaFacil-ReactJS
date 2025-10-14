@@ -1,31 +1,142 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CardContainer } from '../../Components/Containers'
 import { SecondaryText } from '../../Components/Titles'
 import { PrimaryButton, ReturnButton } from '../../Components/Buttons'
 import MaskedInput, { InputField, TextareaField } from '../../Components/Inputs'
+import api from '../../services/api'
+import { useNavigate } from 'react-router-dom'
 
 function EditarProduto() {
-    const [file, setFile] = useState("https://placehold.co/400x400?text=Pré-visualização")
 
-    function handleChange(e) {
+    const navigate = useNavigate()
+
+    const id_farmacia = localStorage.getItem('id_farmacia')
+    const id_produto = localStorage.getItem('id_produto')
+
+    const [urlImagem, setUrlImagem] = useState('')
+    const [nome, setNome] = useState('')
+    const [nomeQuimico, setNomeQuimico] = useState('')
+    const [label, setLabel] = useState('')
+    const [lote, setLote] = useState('')
+    const [preco, setPreco] = useState('')
+    const [estoque, setEstoque] = useState('')
+    const [validade, setValidade] = useState('')
+
+    // * Verificando, em tempo real, se o id do produto está no localStorage
+    useEffect(() => {
+        const checkIdProduto = () => {
+            const id_produto = localStorage.getItem('id_produto')
+            if (!id_produto) {
+                navigate('/estoque')
+            }
+        }
+
+        // Checa ao montar
+        checkIdProduto()
+
+        // Checa em tempo real (em outras abas/janelas)
+        window.addEventListener('storage', checkIdProduto)
+
+        // Checa periodicamente na mesma aba (caso removido via código)
+        const interval = setInterval(checkIdProduto, 500)
+
+        return () => {
+            window.removeEventListener('storage', checkIdProduto)
+            clearInterval(interval)
+        }
+    }, [navigate])
+
+    // * Consulta inicial da api
+    const carregarDados = async () => {
+        try {
+            const response = await api.get(`/produtos/${id_produto}`)
+            const data = response.data.produto
+
+            console.log(data)
+            setUrlImagem(data.imagem_url)
+            setNome(data.nome)
+            setNomeQuimico(data.nome_quimico)
+            setLabel(data.label)
+            let precoAPI = data.preco
+            if (precoAPI % 1 === 0) {
+                precoAPI = precoAPI * 100
+            } else {
+                precoAPI = Math.round(precoAPI * 100)
+            }
+            setPreco(precoAPI.toString())
+            console.log(preco)
+            setEstoque(data.quantidade)
+            setLote(data.lote)
+            setValidade(data.validade)
+            console.log(urlImagem)
+
+        } catch (error) {
+            alert(`Não foi possível carregar os dados desse produto: ${error}`)
+        }
+    }
+
+    // * Pré-visualização da imagem selecionada
+    const [file, setFile] = useState(urlImagem)
+    function handleChangeImage(e) {
         console.log(e.target.files)
         setFile(URL.createObjectURL(e.target.files[0]))
     }
 
-    const handleCurrencyChange = (clean, formatted) => {
-        console.log('Valor limpo:', clean);
-        console.log('Valor formatado:', formatted);
-    };
-
-    // Validação robusta para impedir negativos e valores não numéricos
+    // * Impedindo números negativos e valores não numéricos no campo 'Estoque'
     function handleEstoqueChange(e) {
         let value = e.target.value;
-        // Remove caracteres não numéricos
+        // * Remove caracteres não numéricos
         value = value.replace(/\D/g, '');
-        // Garante que não seja negativo
+        // * Garante que não seja negativo
         if (value === '' || Number(value) < 0) value = '0';
         setEstoque(value);
     }
+
+    const handleUpdate = async (e) => {
+        e.preventDefault()
+
+        try {
+            const formData = new FormData()
+            formData.append('nome', nome)
+            formData.append('nome_quimico', nomeQuimico)
+            formData.append('preco', preco)
+            formData.append('quantidade', estoque)
+            formData.append('validade', validade)
+            formData.append('lote', lote)
+            formData.append('label', label)
+            // Se uma nova imagem foi selecionada, envie
+            const input = document.getElementById('fileInput')
+            if (input && input.files[0]) {
+                formData.append('imagem', input.files[0])
+            }
+
+            await api.patch(`/produtos/${id_produto}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+
+            
+
+            localStorage.removeItem('id_produto')
+            navigate('/estoque')
+        } catch (error) {
+            alert(`Erro ao atualizar o produto: ${error}`)
+        }
+    }
+
+    const handleCurrencyChange = (clean, formatted) => {
+        let precoDecimal = ''
+        if (clean.length > 0) {
+            precoDecimal = (Number(clean) / 100).toFixed(2)
+        }
+        setPreco(precoDecimal)
+    }
+
+    useEffect(() => {
+        carregarDados()
+        setFile(urlImagem)
+    }, [urlImagem])
 
     return (
         <>
@@ -44,7 +155,7 @@ function EditarProduto() {
                             type="file"
                             accept="image/*"
                             className="hidden"
-                            onChange={handleChange}
+                            onChange={handleChangeImage}
                         />
                         {/* Pré-visualização */}
                         {file && (
@@ -86,110 +197,48 @@ function EditarProduto() {
                             Escolher imagem do produto
                         </label>
                     </div>
+
                     {/* // * Nome do produto */}
                     <InputField
                         labelText={'Nome do produto:'}
                         type='text'
-                        divClassName='
-                                m-auto                                
-                                xl:m-auto
-                                md:m-auto                                
-                                w-full 
-                                xl:w-[60%] 
-                                md:w-[60%] 
-                                sm:w-full
-                            '
+                        value={nome}
+                        onChange={e => setNome(e.target.value)}
                     />
                     <InputField
                         labelText={'Nome Químico:'}
                         type='text'
-                        divClassName='
-                                m-auto                                
-                                xl:m-auto
-                                md:m-auto                                
-                                w-full 
-                                xl:w-[60%] 
-                                md:w-[60%] 
-                                sm:w-full
-                            '
+                        value={nomeQuimico}
+                        onChange={e => setNomeQuimico(e.target.value)}
                     />
                     <MaskedInput
                         labelText={'Preço'}
                         mask={'currency'}
+                        value={preco}
                         onValueChange={handleCurrencyChange}
-                        divClassName='
-                                m-auto                                
-                                xl:m-auto
-                                md:m-auto                                
-                                w-full 
-                                xl:w-[60%] 
-                                md:w-[60%] 
-                                sm:w-full
-                            '
                     />
                     <InputField
                         labelText={'Estoque:'}
                         type='number'
-                        divClassName='
-                                m-auto                                
-                                xl:m-auto
-                                md:m-auto                                
-                                w-full 
-                                xl:w-[60%] 
-                                md:w-[60%] 
-                                sm:w-full
-                            '
-                        min='0'
-                        onKeyDown={(e) => {
-                            if (e.key === '-' || e.key === 'e') {
-                                e.preventDefault();
-                            }
-                        }}
+                        value={estoque}
+                        onChange={handleEstoqueChange}
                     />
                     <InputField
                         labelText={'Lote:'}
                         type='text'
-                        divClassName='
-                                m-auto                                
-                                xl:m-auto
-                                md:m-auto                                
-                                w-full 
-                                xl:w-[60%] 
-                                md:w-[60%] 
-                                sm:w-full
-                            '
+                        value={lote}
+                        onChange={e => setLote(e.target.value)}
                     />
                     <InputField
                         labelText={'Validade:'}
                         type='date'
-                        divClassName='
-                                m-auto                                
-                                xl:m-auto
-                                md:m-auto                                
-                                w-full
-                                xl:w-[60%]
-                                md:w-[60%] 
-                                sm:w-full
-                            '
-                    />
-                    {/* // ? Adicionar limite de caracteres? */}
-                    <TextareaField
-                        divClassName='
-                                m-auto                                
-                                xl:m-auto
-                                md:m-auto                                
-                                w-full 
-                                xl:w-[60%] 
-                                md:w-[60%] 
-                                sm:w-full
-                            '
-                        labelText={'Descrição:'}
+                        value={validade}
+                        onChange={e => setValidade(e.target.value)}
                     />
 
-
-                    <PrimaryButton type='submit' className='xl:w-[60%] md:w-full sm:w-full w-full mx-auto mt-8'>
+                    <PrimaryButton type='submit' className='xl:w-[60%] md:w-full sm:w-full w-full mx-auto mt-8' onClick={handleUpdate}>
                         <span className=''>
-                            Adicionar produto
+                            Editar produto
                         </span>
                     </PrimaryButton>
                 </CardContainer>

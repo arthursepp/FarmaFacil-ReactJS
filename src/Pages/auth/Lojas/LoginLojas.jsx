@@ -35,7 +35,7 @@ function LoginLojas() {
             localStorage.setItem('id_farmacia', response.data.farma_id)
 
             if (response.data?.token) {
-                navigate('/home/lojas/')
+                window.location.href = '/home/lojas'
             } else {
                 setError(response.data?.msg || 'Erro ao fazer login')
             }

@@ -11,6 +11,7 @@ export const ReturnButton = () => {
 
     const voltar = () => {
         if (localStorage.getItem('id_produto')) localStorage.removeItem('id_produto')
+        if (localStorage.getItem('id_pedido')) localStorage.removeItem('id_pedido')
         navigate(-1)
     }
 

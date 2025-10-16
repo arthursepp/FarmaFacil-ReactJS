@@ -83,16 +83,15 @@ function PedidosLoja() {
 
     return (
         <>
-            <div className='p-5'>
-                <ReturnButton />
+            <div className='p-5'>                
                 <SecondaryText text='Seus pedidos' className={'text-black my-4'} />
                 <GenericTabs
                     tabs={tabs}
                     defaultActive={'Concluidos'}
-                    className='
-                        xl:max-h-[400px]
-                        md:max-h-[350px]
-                        max-h-[350px]
+                    className='                        
+                        xl:max-h-[480px]
+                        md:max-h-[390px]
+                        max-h-[400px]
                     '
                 />
             </div>

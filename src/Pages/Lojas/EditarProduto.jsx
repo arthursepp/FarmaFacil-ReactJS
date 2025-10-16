@@ -63,10 +63,10 @@ function EditarProduto() {
             } else {
                 precoAPI = Math.round(precoAPI * 100)
             }
-            setPreco(precoAPI.toString())            
+            setPreco(precoAPI.toString())
             setEstoque(data.quantidade)
             setLote(data.lote)
-            setValidade(data.validade)            
+            setValidade(data.validade)
 
         } catch (error) {
             alert(`Não foi possível carregar os dados desse produto: ${error}`)
@@ -75,18 +75,14 @@ function EditarProduto() {
 
     // * Pré-visualização da imagem selecionada
     const [file, setFile] = useState(urlImagem)
-    function handleChangeImage(e) {        
+    function handleChangeImage(e) {
         setFile(URL.createObjectURL(e.target.files[0]))
     }
 
     // * Impedindo números negativos e valores não numéricos no campo 'Estoque'
     function handleEstoqueChange(e) {
-        let value = e.target.value;
-        // * Remove caracteres não numéricos
-        value = value.replace(/\D/g, '');
-        // * Garante que não seja negativo
-        if (value === '' || Number(value) < 0) value = '0';
-        setEstoque(value);
+        let value = e.target.value.replace(/\D/g, '')
+        setEstoque(value)
     }
 
     const handleUpdate = async (e) => {
@@ -113,7 +109,7 @@ function EditarProduto() {
                 }
             })
 
-            
+
 
             localStorage.removeItem('id_produto')
             navigate('/estoque')

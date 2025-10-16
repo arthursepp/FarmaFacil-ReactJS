@@ -38,7 +38,6 @@ function AdicionarProduto() {
 
     function handleEstoqueChange(e) {
         let value = e.target.value.replace(/\D/g, '')
-        if (value === '' || Number(value) < 0) value = '0'
         setEstoque(value)
     }
 
@@ -119,7 +118,7 @@ function AdicionarProduto() {
                                 accept="image/*"
                                 className="hidden"
                                 onChange={handleChange}
-                                name='imagem'                                
+                                name='imagem'
                             />
                             {file && (
                                 <div className="mt-4">
@@ -276,16 +275,18 @@ function AdicionarProduto() {
                                 '
                                 value={label}
                                 onChange={e => setLabel(e.target.value)}
-                            />                            
+                            />
                         </div>
 
                         {error && <div className="text-center text-red-500 mt-2">{error}</div>}
                         {success && <div className="text-center text-green-500 mt-2">{success}</div>}
-                        <PrimaryButton type='submit' className='xl:w-[60%] md:w-full sm:w-full w-full mx-auto mt-7' disabled={loading}>
-                            <span>
-                                {loading ? 'Adicionando...' : 'Adicionar produto'}
-                            </span>
-                        </PrimaryButton>
+                        <div className="flex justify-center items-center">
+                            <PrimaryButton type='submit' className='xl:w-[60%] md:w-full sm:w-full w-full mx-auto mt-7' disabled={loading}>
+                                <span>
+                                    {loading ? 'Adicionando...' : 'Adicionar produto'}
+                                </span>
+                            </PrimaryButton>
+                        </div>
                     </form>
                 </CardContainer>
             </div>

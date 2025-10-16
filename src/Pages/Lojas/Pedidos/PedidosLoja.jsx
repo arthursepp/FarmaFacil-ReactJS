@@ -47,7 +47,7 @@ function PedidosLoja() {
                                 url={`/pedidos/lojas/detalhes`}
                                 imageUrl="https://placehold.co/600x400"
                                 nomeProduto={`Pedido ${pedido._id}`}
-                                precoProduto={`R$ ${pedido.precoTotal}`}
+                                precoProduto={`R$ ${parseFloat(pedido.precoTotal).toFixed(2)}`}
                                 pedido={pedido}
                                 onClick={() => localStorage.setItem('id_pedido', pedido._id)}
                             />
@@ -70,7 +70,7 @@ function PedidosLoja() {
                                 url={`/pedidos/lojas/detalhes`}
                                 imageUrl="https://placehold.co/600x400"
                                 nomeProduto={`Pedido ${pedido._id}`}
-                                precoProduto={`R$ ${pedido.precoTotal}`}
+                                precoProduto={`R$ ${parseFloat(pedido.precoTotal).toFixed(2)}`}
                                 pedido={pedido}
                                 onClick={() => localStorage.setItem('id_pedido', pedido._id)}
                             />

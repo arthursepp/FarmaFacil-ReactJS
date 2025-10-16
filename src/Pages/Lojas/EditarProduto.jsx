@@ -63,12 +63,10 @@ function EditarProduto() {
             } else {
                 precoAPI = Math.round(precoAPI * 100)
             }
-            setPreco(precoAPI.toString())
-            console.log(preco)
+            setPreco(precoAPI.toString())            
             setEstoque(data.quantidade)
             setLote(data.lote)
-            setValidade(data.validade)
-            console.log(urlImagem)
+            setValidade(data.validade)            
 
         } catch (error) {
             alert(`Não foi possível carregar os dados desse produto: ${error}`)
@@ -77,8 +75,7 @@ function EditarProduto() {
 
     // * Pré-visualização da imagem selecionada
     const [file, setFile] = useState(urlImagem)
-    function handleChangeImage(e) {
-        console.log(e.target.files)
+    function handleChangeImage(e) {        
         setFile(URL.createObjectURL(e.target.files[0]))
     }
 
@@ -99,7 +96,7 @@ function EditarProduto() {
             const formData = new FormData()
             formData.append('nome', nome)
             formData.append('nome_quimico', nomeQuimico)
-            formData.append('preco', preco)
+            formData.append('preco', (Number(preco) / 100).toString())
             formData.append('quantidade', estoque)
             formData.append('validade', validade)
             formData.append('lote', lote)

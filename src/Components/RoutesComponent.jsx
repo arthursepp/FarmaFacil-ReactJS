@@ -35,6 +35,17 @@ export const ProductRoute = ({ children, redirectTo }) => {
     return children
 }
 
+export const OrderRoute = ({ children, redirectTo }) => {
+    const tokenLoja = localStorage.getItem('tokenLoja')
+    const idPedido = localStorage.getItem('id_pedido')
+
+    if (!tokenLoja) return <Navigate to='/login/lojas' replace />
+
+    if (!idPedido) return <Navigate to={redirectTo} replace />
+
+    return children
+}
+
 export const SmartLanding = ({ children }) => {
     const tokenCliente = localStorage.getItem('tokenCliente')
     const tokenLoja = localStorage.getItem('tokenLoja')

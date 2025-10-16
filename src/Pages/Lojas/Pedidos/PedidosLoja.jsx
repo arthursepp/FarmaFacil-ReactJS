@@ -3,38 +3,56 @@ import Footer from '../../../Components/Footer'
 import { ReturnButton } from '../../../Components/Buttons'
 import PedidoComponent from '../../../Components/Pedidos'
 import GenericTabs from '../../../Components/Tabs'
+import api from '../../../services/api'
+import { useState, useEffect } from 'react'
+
 
 function PedidosLoja() {
+
+    const id_farmacia = localStorage.getItem('id_farmacia')
+    const [pedidos, setPedidos] = useState([])
+    const [concluidos, setConcluidos] = useState([])
+    const [pendentes, setPendentes] = useState([])
+
+    const carregarPedidos = async () => {
+        try {
+            const response = await api.get(`/pedidos/farmacia/${id_farmacia}`)
+            setPedidos(response.data)
+        } catch (error) {
+            alert(`Não foi possível buscar os pedidos: ${error}`)
+        }
+    }
+
+    useEffect(() => {
+        carregarPedidos()
+    }, [])
+
+    useEffect(() => {
+        setConcluidos(pedidos.filter((p) => p.status === 'Concluido'))
+        setPendentes(pedidos.filter((p) => p.status === 'Pendente'))
+    }, [pedidos])
+
     const tabs = [
         {
             id: "Concluidos",
             label: "Concluídos",
             content: (
                 <div>
-                    <PedidoComponent
-                        url="/pedidos/lojas/detalhes"
-                        imageUrl="https://placehold.co/600x400"
-                        nomeProduto="Produto concluído 1"
-                        precoProduto="R$ 100,00"
-                    />
-                    <PedidoComponent
-                        url="/pedidos/lojas/detalhes"
-                        imageUrl="https://placehold.co/600x400"
-                        nomeProduto="Produto concluído 2"
-                        precoProduto="R$ 200,00"
-                    />
-                    <PedidoComponent
-                        url="/pedidos/lojas/detalhes"
-                        imageUrl="https://placehold.co/600x400"
-                        nomeProduto="Produto concluído 2"
-                        precoProduto="R$ 200,00"
-                    />
-                    <PedidoComponent
-                        url="/pedidos/lojas/detalhes"
-                        imageUrl="https://placehold.co/600x400"
-                        nomeProduto="Produto concluído 2"
-                        precoProduto="R$ 200,00"
-                    />
+                    {concluidos.length === 0 ? (
+                        <p>Nenhum pedido concluído.</p>
+                    ) : (
+                        concluidos.map((pedido) => (
+                            <PedidoComponent
+                                key={pedido._id}
+                                url={`/pedidos/lojas/detalhes`}
+                                imageUrl="https://placehold.co/600x400"
+                                nomeProduto={`Pedido ${pedido._id}`}
+                                precoProduto={`R$ ${pedido.precoTotal}`}
+                                pedido={pedido}
+                                onClick={() => localStorage.setItem('id_pedido', pedido._id)}
+                            />
+                        ))
+                    )}
                 </div>
             )
         },
@@ -43,12 +61,21 @@ function PedidosLoja() {
             label: "Pendentes",
             content: (
                 <div>
-                    <PedidoComponent
-                        url="/pedidos/lojas/detalhes"
-                        imageUrl="https://placehold.co/600x400"
-                        nomeProduto="Produto pendente"
-                        precoProduto="R$ 150,00"
-                    />
+                    {pendentes.length === 0 ? (
+                        <p>Nenhum pedido pendente.</p>
+                    ) : (
+                        pendentes.map((pedido) => (
+                            <PedidoComponent
+                                key={pedido._id}
+                                url={`/pedidos/lojas/detalhes`}
+                                imageUrl="https://placehold.co/600x400"
+                                nomeProduto={`Pedido ${pedido._id}`}
+                                precoProduto={`R$ ${pedido.precoTotal}`}
+                                pedido={pedido}
+                                onClick={() => localStorage.setItem('id_pedido', pedido._id)}
+                            />
+                        ))
+                    )}
                 </div>
             )
         }
@@ -59,9 +86,9 @@ function PedidosLoja() {
             <div className='p-5'>
                 <ReturnButton />
                 <SecondaryText text='Seus pedidos' className={'text-black my-4'} />
-                <GenericTabs 
-                    tabs={tabs} 
-                    defaultActive={'Concluidos'} 
+                <GenericTabs
+                    tabs={tabs}
+                    defaultActive={'Concluidos'}
                     className='
                         xl:max-h-[400px]
                         md:max-h-[350px]

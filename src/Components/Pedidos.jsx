@@ -6,11 +6,13 @@ function PedidoComponent({
     url,
     imageUrl,
     nomeProduto,
-    precoProduto,    
+    precoProduto,
+    onClick,
 }) {
     return (
         <a
             href={url}
+            onClick={onClick}
             className='
                 flex
                 flex-col 

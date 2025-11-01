@@ -4,6 +4,11 @@ import HomeClientes from './Pages/HomeClientes.jsx'
 import CadastroClientes from './Pages/auth/Clientes/CadastroClientes.jsx'
 import LoginClientes from './Pages/auth/Clientes/LoginClientes.jsx'
 
+import Detalhes from './Pages/Produtos/Detalhes.jsx'
+import FinalizarCompra from './Pages/Produtos/FinalizarCompra.jsx'
+import MensagemFinal from './Pages/Produtos/MensagemFinal.jsx'
+import Pagamento from './Pages/Produtos/Pagamento.jsx'
+
 import CadastroLojas from './Pages/auth/Lojas/CadastroLojas.jsx'
 import LoginLojas from './Pages/auth/Lojas/LoginLojas.jsx'
 import HomeLojas from './Pages/Lojas/HomeLojas.jsx'
@@ -43,11 +48,14 @@ const App = () => {
 
         {/* Home Clientes (Protegido) */}
         <Route path='/home/clientes' element={
-          <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
             <HomeClientes />
-          </ExclusiveRoute>
         } />
 
+        {/* Rotas Produtos*/}  
+        <Route path='/produtos/detalhes' element={<PublicRoute><Detalhes /></PublicRoute>} />
+        <Route path='/produtos/finalizarcompra' element={<PublicRoute><FinalizarCompra /></PublicRoute>} />
+        <Route path='/produtos/mensagemfinal' element={<PublicRoute><MensagemFinal /></PublicRoute>} />
+        <Route path='/produtos/pagamento' element={<PublicRoute><Pagamento /></PublicRoute>} />
 
         {/* Rotas Públicas - Lojas */}
         <Route path='/login/lojas' element={<PublicRoute><LoginLojas /></PublicRoute>} />

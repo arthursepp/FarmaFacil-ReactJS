@@ -15,7 +15,7 @@ export const CardContainer = ({ className, children, ...props }) => {
                 border-2                
                 rounded-xl                
                 flex
-                flex-col                
+                flex-col
                 ${className}
             `}
             {...props}

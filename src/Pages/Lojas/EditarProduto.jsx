@@ -64,11 +64,9 @@ function EditarProduto() {
                 precoAPI = Math.round(precoAPI * 100)
             }
             setPreco(precoAPI.toString())
-            console.log(preco)
             setEstoque(data.quantidade)
             setLote(data.lote)
             setValidade(data.validade)
-            console.log(urlImagem)
 
         } catch (error) {
             alert(`Não foi possível carregar os dados desse produto: ${error}`)
@@ -78,18 +76,13 @@ function EditarProduto() {
     // * Pré-visualização da imagem selecionada
     const [file, setFile] = useState(urlImagem)
     function handleChangeImage(e) {
-        console.log(e.target.files)
         setFile(URL.createObjectURL(e.target.files[0]))
     }
 
     // * Impedindo números negativos e valores não numéricos no campo 'Estoque'
     function handleEstoqueChange(e) {
-        let value = e.target.value;
-        // * Remove caracteres não numéricos
-        value = value.replace(/\D/g, '');
-        // * Garante que não seja negativo
-        if (value === '' || Number(value) < 0) value = '0';
-        setEstoque(value);
+        let value = e.target.value.replace(/\D/g, '')
+        setEstoque(value)
     }
 
     const handleUpdate = async (e) => {
@@ -99,7 +92,7 @@ function EditarProduto() {
             const formData = new FormData()
             formData.append('nome', nome)
             formData.append('nome_quimico', nomeQuimico)
-            formData.append('preco', preco)
+            formData.append('preco', (Number(preco) / 100).toString())
             formData.append('quantidade', estoque)
             formData.append('validade', validade)
             formData.append('lote', lote)
@@ -116,7 +109,7 @@ function EditarProduto() {
                 }
             })
 
-            
+
 
             localStorage.removeItem('id_produto')
             navigate('/estoque')

@@ -19,11 +19,16 @@ function HomeLojas() {
   const id_farmacia = localStorage.getItem('id_farmacia')
 
   const [estoque, setEstoque] = useState([])
+  const [pedidos, setPedidos] = useState([])
+  const [pendentes, setPendentes] = useState([])
+  const [concluidos, setConcluidos] = useState([])
 
   const carregarDados = async () => {
     try {
-      const response = await api.get(`/produtos/farmacia/${id_farmacia}`)
-      setEstoque(response.data)
+      const responseProdutos = await api.get(`/produtos/farmacia/${id_farmacia}`)
+      const responsePedidos = await api.get(`pedidos/farmacia/${id_farmacia}`)
+      setEstoque(responseProdutos.data)
+      setPedidos(responsePedidos.data)
     } catch (error) {
       console.log(`Não foi possível buscar as informações: ${error}`)
     }
@@ -32,6 +37,11 @@ function HomeLojas() {
   useEffect(() => {
     carregarDados()
   }, [])
+
+  useEffect(() => {
+    setConcluidos(pedidos.filter((p) => p.status === 'Concluido'))
+    setPendentes(pedidos.filter((p) => p.status === 'Pendente'))
+  }, [pedidos])
 
   const produtoMenorQtd = estoque.length > 0 ? estoque.reduce(
     (min, item) => item.quantidade < min.quantidade ?
@@ -70,8 +80,8 @@ function HomeLojas() {
               <div className="m-auto">
                 <span className='text-xl'>Gerenciar pedidos</span>
               </div>
-              <SmallInfoContainer texto1={'Pedidos concluídos'} texto2='xx' />
-              <SmallInfoContainer texto1={'Pedidos pendentes:'} texto2='xx' />
+              <SmallInfoContainer texto1={'Pedidos concluídos'} texto2={concluidos.length} />
+              <SmallInfoContainer texto1={'Pedidos pendentes:'} texto2={pendentes.length} />
               <PrimaryButton link={true} url='/pedidos/lojas'>
                 <span>Ver pedidos</span>
               </PrimaryButton>

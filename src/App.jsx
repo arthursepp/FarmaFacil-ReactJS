@@ -37,24 +37,18 @@ const App = () => {
         {/* Removida a rota duplicada. Esta agora usa seu PublicRoute corretamente. */}
         <Route
           path='/login/clientes'
-          element={
-            // Assumindo que 'validator' deveria ser 'tokenCliente' aqui
-            // Se for para Lojas, a lógica de <PublicRoute> pode precisar de revisão
+          element={            
             <PublicRoute storageKey={'tokenCliente'} redirectTo='/home/clientes'>
               <LoginClientes />
             </PublicRoute>
           }
         />
         <Route path='/cadastro/clientes' element={<PublicRoute><CadastroClientes /></PublicRoute>} />
-
-
-        {/* Home Clientes (Protegido) */}
-        {/* Você deve proteger esta rota, assim como protege as rotas de Loja */}
-        <Route path='/home/clientes' element={
-          // Exemplo de como proteger a Home Clientes:
-          // <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+        
+        <Route path='/home/clientes' element={          
+          //<ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
              <HomeClientes />
-          // </ExclusiveRoute>
+          //</ExclusiveRoute>
         } />
 
         {/* Rotas Produtos*/} 

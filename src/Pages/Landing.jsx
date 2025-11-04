@@ -10,16 +10,16 @@ function Landing() {
                 <img src={LogoFarmaFacil} alt="Logo farma fácil" className='w-25 xl:w-30 md:w-30 sm:w-25' />
             </div>
             <div className='flex flex-col text-center gap-5'>
-                <span className='text-2xl'>Olá usuário(a)!</span>
-                <span className='text-2xl'>Você já possui cadastro em nosso app?</span>
+                <span className='text-3xl font-semibold font-poppins'>Olá, seja bem-vindo(a)!</span>
+                <span className='text-2xl font-poppins'>Você já possui cadastro em nosso app?</span>
             </div>
 
             <div className='flex flex-col items-center justify-center'>
                 <PrimaryButton link={true} url='/login/clientes' className='w-full xl:w-[35%] md:w-[50%] sm:w-full'>
-                    <span>Sim, já tenho conta</span>
+                    <span>Sim, já possuo cadastro!</span>
                 </PrimaryButton>
                 <SecondaryButton link={true} className='w-full xl:w-[35%] md:w-[50%] sm:w-full' url='/cadastro/clientes'>
-                    <span>Não, não tenho conta</span>
+                    <span>Não, quero me cadastrar!</span>
                 </SecondaryButton>
             </div>
 

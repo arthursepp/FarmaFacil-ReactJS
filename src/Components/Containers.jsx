@@ -27,7 +27,7 @@ export const CardContainer = ({ className, children, ...props }) => {
 
 export const ProductCard = ({ nomeProduto, descricaoProduto, precoProduto, className }) => {
     return (
-        <div className={`flex flex-col p-3 border-2 border-blue-500 rounded-xl w-full max-w-sm ${className}`}>
+        <div className={`flex flex-col p-3 border-2 border-primaryblue rounded-xl w-full max-w-sm ${className}`}>
             
             <div className="mb-3 flex justify-center w-full">
                 <img 
@@ -54,7 +54,7 @@ export const ProductCard = ({ nomeProduto, descricaoProduto, precoProduto, class
                 </span>
 
                 <button 
-                    className="py-2 px-4 flex items-center justify-center space-x-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg font-bold transition duration-150"
+                    className="py-2 px-4 flex items-center justify-center space-x-2 text-white bg-primaryblue hover:bg-blue-600 rounded-lg font-bold transition duration-150"
                 >
                     <span>Comprar</span>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

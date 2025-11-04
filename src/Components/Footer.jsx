@@ -28,22 +28,22 @@ function Footer({ type, className, children, ...props }) {
                     icon={faHome}
                     text={'Home'}
                     url={'/home/lojas'}
-                    iconclassName={`text-2xl ${currentRoute === '/home/lojas' ? 'text-blue-500' : ''}`}
-                    className={currentRoute === '/home/lojas' ? 'text-blue-500' : ''}
+                    iconclassName={`text-2xl ${currentRoute === '/home/lojas' ? 'text-primaryblue' : ''}`}
+                    className={currentRoute === '/home/lojas' ? 'text-primaryblue' : ''}
                 />
                 <IconTabLink
                     icon={faClipboardCheck}
                     text={'Pedidos'}
                     url={'/pedidos/lojas'}
-                    iconclassName={`text-2xl ${currentRoute === '/pedidos/lojas' ? 'text-blue-500' : ''}`}
-                    className={currentRoute === '/pedidos/lojas' ? 'text-blue-500' : ''}
+                    iconclassName={`text-2xl ${currentRoute === '/pedidos/lojas' ? 'text-primaryblue' : ''}`}
+                    className={currentRoute === '/pedidos/lojas' ? 'text-primaryblue' : ''}
                 />
                 <IconTabLink
                     icon={faGear}
                     text={'Configurações'}
                     url={'/configuracoes/lojas'}
-                    iconclassName={`text-2xl ${currentRoute === '/configuracoes/lojas' ? 'text-blue-500' : ''}`}
-                    className={currentRoute === '/configuracoes/lojas' ? 'text-blue-500' : ''}
+                    iconclassName={`text-2xl ${currentRoute === '/configuracoes/lojas' ? 'text-primaryblue' : ''}`}
+                    className={currentRoute === '/configuracoes/lojas' ? 'text-primaryblue' : ''}
                 />
             </footer>
         )

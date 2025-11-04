@@ -65,7 +65,7 @@ function DetalhesPedido() {
         <Header text={'Detalhes do pedido:'} divClassName='mt-3' />
 
         <CardContainer className='
-            border-blue-500 
+            border-primaryblue 
             p-2 
             mt-3 
             xl:h-[490px]

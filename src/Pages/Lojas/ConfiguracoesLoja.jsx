@@ -86,7 +86,7 @@ function ConfiguracoesLoja() {
 
         <CardContainer
           className='
-            border-blue-500 
+            border-primaryblue 
             p-3 
             mt-3 
             xl:max-h-[450px]

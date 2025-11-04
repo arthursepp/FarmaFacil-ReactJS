@@ -95,10 +95,15 @@ const MaskedInput = ({
         onChange={handleChange}
         className={`
           border-2 
-          border-blue-500 
-          p-2 
-          rounded-xl 
-          focus:outline-none
+          border-primaryblue 
+          p-2 
+          rounded-xl 
+          focus:outline-none
+          focus:ring-2
+          focus:ring-primaryblue/50
+          transition-all
+          duration-200
+          ease-in-out
           ${inputClassName}
         `}
         {...props}
@@ -115,10 +120,15 @@ export const InputField = ({ labelText, labelClassName, name, inputClassName, di
         id={name}
         className={`
           border-2 
-          border-blue-500 
-          focus:outline-none
-          p-2 
-          rounded-xl
+          border-primaryblue 
+s         focus:outline-none
+          p-2 
+          rounded-xl
+          focus:ring-2
+          focus:ring-primaryblue/50
+          transition-all
+          duration-200
+          ease-in-out
           ${inputClassName}
         `}
         name={name}
@@ -136,9 +146,15 @@ export const TextareaField = ({ labelText, labelClassName, name, inputClassName,
         id={name}
         className={`
           border-2 
-          border-blue-500 
-          p-2 
-          rounded-xl
+          border-primaryblue 
+          Services           p-2 
+          rounded-xl
+          focus:outline-none
+          focus:ring-2
+          focus:ring-primaryblue/50
+          transition-all
+          duration-200
+          ease-in-out
           ${inputClassName}
         `}
         name={name}

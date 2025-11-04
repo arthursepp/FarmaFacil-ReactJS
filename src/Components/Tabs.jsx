@@ -18,19 +18,19 @@ function GenericTabs({ tabs, defaultActive, className }) {
                             text-center
                             border-2
                             rounded-t-xl
-                            border-blue-500
+                            border-primaryblue
                             ${activeTab === tab.id
                                 ? `
                                     p-2.5
                                     rounded-t-xl
                                     font-bold
                                     cursor-pointer
-                                    bg-blue-500
+                                    bg-primaryblue
                                     text-white
                                 `
                                 : `
                                     cursor-pointer 
-                                    hover:bg-blue-500 
+                                    hover:bg-primaryblue 
                                     hover:text-white 
                                     hover:rounded-t-xl 
                                     p-2.5

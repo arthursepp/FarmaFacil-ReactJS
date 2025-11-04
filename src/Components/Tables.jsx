@@ -7,7 +7,7 @@ function TabelaEstoque({ dados, onEdit, onDelete }) {
         <div className="max-h-[400px] sm:max-h-[350px] md:max-h-[400px] xl:max-h-[400px] overflow-x-auto mt-3 rounded-xl border border-slate-400">
             <table className="min-w-full rounded-xl shadow-sm">
                 {/* Cabeçalhos */}
-                <thead className="bg-blue-500 text-white font-bold">
+                <thead className="bg-primaryblue text-white font-bold">
                     <tr>
                         <th className="px-6 py-3 text-left text-sm text-white font-bold ">
                             Nome

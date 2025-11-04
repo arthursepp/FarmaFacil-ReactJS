@@ -108,7 +108,7 @@ function AdicionarProduto() {
                     className={'mt-3'}
                 />
 
-                <CardContainer className='mt-3 border-blue-500 p-2'>
+                <CardContainer className='mt-3 border-primaryblue p-2'>
                     <form onSubmit={handleSubmit}>
                         {/* Pré visualização da imagem */}
                         <div className='flex flex-col items-center p-3 border-b-2 border-slate-400 mb-5'>
@@ -135,7 +135,7 @@ function AdicionarProduto() {
                                             object-cover 
                                             rounded 
                                             border-2 
-                                            border-blue-500 
+                                            border-primaryblue 
                                             p-3
                                         "
                                     />
@@ -144,7 +144,7 @@ function AdicionarProduto() {
                             <label
                                 htmlFor="fileInput"
                                 className="
-                                    bg-blue-500 
+                                    bg-primaryblue 
                                     text-white 
                                     rounded 
                                     cursor-pointer 

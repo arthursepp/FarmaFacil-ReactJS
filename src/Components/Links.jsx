@@ -10,6 +10,7 @@ export const IconTabLink = ({ text, url, icon, className, iconclassName,...props
                 flex-col
                 items-center
                 gap-2
+                font-poppins
             `} 
             {...props}
         >
@@ -20,9 +21,20 @@ export const IconTabLink = ({ text, url, icon, className, iconclassName,...props
 }
 
 export const GenericLink = ({ url, className, children }) => {
-    return (
-        <a href={url} className={` text-blue-500 underline ${className}`}>
-            {children}
-        </a>
-    )
-}
+  return (
+    <a
+      href={url}
+      className={`
+        text-primaryblue underline underline-offset-2
+        hover:text-blue-700 hover:underline-offset-4
+        focus:outline-none focus:ring-2 focus:ring-primaryblue focus:ring-offset-2 rounded-sm
+        active:text-blue-800
+        transition-all duration-200 ease-in-out
+        font-poppins
+        ${className}
+      `}
+    >
+      {children}
+    </a>
+  );
+};

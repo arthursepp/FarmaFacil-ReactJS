@@ -62,7 +62,7 @@ function HomeLojas() {
 
           <div className="flex flex-col gap-3 md:m-auto md:w-[40%]">
 
-            <div className="flex flex-col border-2 border-blue-500 p-2 rounded-xl gap-2 xl:gap-3">
+            <div className="flex flex-col border-2 border-primaryblue p-2 rounded-xl gap-2 xl:gap-3">
               <div className="m-auto">
                 <span className='text-xl'>Gerenciar produtos</span>
               </div>
@@ -76,7 +76,7 @@ function HomeLojas() {
               </PrimaryButton>
             </div>
 
-            <div className="flex flex-col border-2 border-blue-500 p-2 rounded-xl gap-2 xl:gap-3">
+            <div className="flex flex-col border-2 border-primaryblue p-2 rounded-xl gap-2 xl:gap-3">
               <div className="m-auto">
                 <span className='text-xl'>Gerenciar pedidos</span>
               </div>

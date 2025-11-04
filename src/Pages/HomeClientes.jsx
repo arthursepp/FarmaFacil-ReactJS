@@ -1,5 +1,5 @@
 // Imports do React e React Router
-import React, { useState, useEffect } from 'react' // Importado useEffect
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // Imports dos seus componentes
@@ -16,7 +16,7 @@ import api from '../services/api'
 //
 // Componente ProductContainer (Atualizado para receber 'produto' e formatar preço)
 //
-const ProductContainer = ({ produto, className }) => {
+const ProductContainer = ({ produto, className, onComprarClick }) => { // Adicionado onComprarClick
   
   // Formata o preço (ex: 100 -> 100,00)
   const formatPrice = (price) => {
@@ -24,11 +24,10 @@ const ProductContainer = ({ produto, className }) => {
   }
 
   return (
-    <div className={`flex items-center justify-between p-3 border-2 border-blue-500 rounded-xl shadow-lg w-full ${className}`}>
+    <div className={`flex items-center justify-between p-3 border-2 border-primaryblue rounded-xl shadow-lg w-full ${className}`}>
       
       <div className="flex-shrink-0 w-16 h-auto mr-3">
         <img 
-          // Usando a imagem_url da API, com um placeholder
           src={produto.imagem_url || "https://via.placeholder.com/150"} 
           alt={produto.nome || 'Imagem do Produto'} 
           className="w-full h-auto object-contain rounded" 
@@ -37,19 +36,18 @@ const ProductContainer = ({ produto, className }) => {
 
       <div className='flex-grow flex flex-col justify-center min-w-0'>
         <span className="text-xl font-bold truncate text-gray-800">
-          {/* Usando o nome do produto da API */}
           {produto.nome || 'Nome do Produto'}
         </span>
         
         <span className="text-lg font-semibold text-green-600">
-          {/* Usando o preço da API e formatando */}
           R$ {formatPrice(produto.preco)}
         </span>
       </div>
 
       <div className="flex-shrink-0 ml-4">
         <button 
-          className="py-3 px-6 flex items-center justify-center space-x-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg font-bold transition duration-150"
+          className="py-3 px-6 flex items-center justify-center space-x-2 text-white bg-primaryblue hover:bg-blue-600 rounded-lg font-bold transition duration-150"
+          onClick={onComprarClick} // Ação de clique adicionada
         >
           <span>Comprar</span>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -66,16 +64,14 @@ const ProductContainer = ({ produto, className }) => {
 //
 function HomeClientes() {
   
-  const navigate = useNavigate()
+  const navigate = useNavigate() // Hook de navegação
   const [logoutLoading, setLogoutLoading] = useState(false)
 
-  // --- Novos Estados ---
-  const [produtos, setProdutos] = useState([]) // Para armazenar os produtos da API
-  const [busca, setBusca] = useState('') // Para controlar o campo de busca
-  const [loading, setLoading] = useState(true) // Estado de carregamento
-  const [error, setError] = useState(null) // Estado de erro
+  const [produtos, setProdutos] = useState([]) 
+  const [busca, setBusca] = useState('') 
+  const [loading, setLoading] = useState(true) 
+  const [error, setError] = useState(null) 
 
-  // --- Função de Logout ---
   const handleLogout = () => {
     setLogoutLoading(true)
     localStorage.removeItem('tokenCliente')
@@ -84,15 +80,12 @@ function HomeClientes() {
     navigate('/login/clientes')
   }
 
-  // --- Busca os dados da API ---
   useEffect(() => {
     const carregarProdutos = async () => {
       try {
         setLoading(true)
         setError(null)
         
-        // A API de produtos (GET /) não parece exigir token
-        // Se exigir, você precisa adicionar o header de autorização
         const response = await api.get('/produtos') 
         
         setProdutos(response.data || [])
@@ -105,15 +98,13 @@ function HomeClientes() {
     }
 
     carregarProdutos()
-  }, []) // Array vazio, executa apenas uma vez quando o componente monta
+  }, []) 
 
   
-  // --- Filtra os produtos com base na busca ---
   const filteredProdutos = produtos.filter(produto => 
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   )
 
-  // --- Função para renderizar a lista de produtos ---
   const renderProdutos = () => {
     if (loading) {
       return <p className='text-center text-lg mt-5'>Carregando produtos...</p>
@@ -130,8 +121,12 @@ function HomeClientes() {
     return (
       <div className='flex flex-col gap-4 mt-4'>
         {filteredProdutos.map(produto => (
-          // Usando o _id do produto como key
-          <ProductContainer key={produto._id} produto={produto} /> 
+          <ProductContainer 
+            key={produto._id} 
+            produto={produto}
+            // Passa a função de navegação para o componente
+            onComprarClick={() => navigate(`/produtos/detalhes/${produto._id}`)}
+          /> 
         ))}
       </div>
     )
@@ -141,7 +136,6 @@ function HomeClientes() {
   return (
     <GenericContainer className='p-5 min-h-screen'> 
         
-        {/* --- Header Flexível --- */}
         <div className='flex items-center justify-between w-full mb-6'>
             <h1 className='font-bold text-2xl'>Olá!</h1>
             <SecondaryDangerButton
@@ -154,7 +148,6 @@ function HomeClientes() {
             </SecondaryDangerButton>
         </div>
         
-        {/* --- Busca (agora conectada ao estado) --- */}
         <InputField 
           labelText='O que busca?' 
           type='text'
@@ -163,7 +156,6 @@ function HomeClientes() {
         />
         <PrimaryButton className='font-bold mb-2'>Buscar Produto</PrimaryButton>
         
-        {/* --- Renderização dinâmica dos produtos --- */}
         {renderProdutos()}
 
     </GenericContainer>

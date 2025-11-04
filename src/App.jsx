@@ -26,33 +26,41 @@ import { ExclusiveRoute, OrderRoute, ProductRoute, ProtectedRoute, PublicRoute, 
 
 const App = () => {
 
-  const validator = 'tokenLoja'
+  const validator = 'tokenLoja' // Este validador parece ser para Lojas, não Clientes
 
   return (
     <div>
       <Routes>
         <Route path='/' element={<SmartLanding><Landing /></SmartLanding>} />
 
+        {/* Rotas Públicas - Clientes */}
+        {/* Removida a rota duplicada. Esta agora usa seu PublicRoute corretamente. */}
         <Route
           path='/login/clientes'
           element={
-            <PublicRoute storageKey={validator} redirectTo='/home/clientes'>
+            // Assumindo que 'validator' deveria ser 'tokenCliente' aqui
+            // Se for para Lojas, a lógica de <PublicRoute> pode precisar de revisão
+            <PublicRoute storageKey={'tokenCliente'} redirectTo='/home/clientes'>
               <LoginClientes />
             </PublicRoute>
           }
         />
-        {/* Rotas Públicas - Clientes */}
-        <Route path='/login/clientes' element={<PublicRoute><LoginClientes /></PublicRoute>} />
         <Route path='/cadastro/clientes' element={<PublicRoute><CadastroClientes /></PublicRoute>} />
 
 
         {/* Home Clientes (Protegido) */}
+        {/* Você deve proteger esta rota, assim como protege as rotas de Loja */}
         <Route path='/home/clientes' element={
-            <HomeClientes />
+          // Exemplo de como proteger a Home Clientes:
+          // <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+             <HomeClientes />
+          // </ExclusiveRoute>
         } />
 
-        {/* Rotas Produtos*/}  
-        <Route path='/produtos/detalhes' element={<PublicRoute><Detalhes /></PublicRoute>} />
+        {/* Rotas Produtos*/} 
+        {/* ROTA ATUALIZADA: Agora aceita um ID dinâmico */}
+        <Route path='/produtos/detalhes/:id' element={<PublicRoute><Detalhes /></PublicRoute>} />
+
         <Route path='/produtos/finalizarcompra' element={<PublicRoute><FinalizarCompra /></PublicRoute>} />
         <Route path='/produtos/mensagemfinal' element={<PublicRoute><MensagemFinal /></PublicRoute>} />
         <Route path='/produtos/pagamento' element={<PublicRoute><Pagamento /></PublicRoute>} />

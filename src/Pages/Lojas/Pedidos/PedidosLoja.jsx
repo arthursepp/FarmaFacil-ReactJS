@@ -19,6 +19,10 @@ function PedidosLoja() {
             const response = await api.get(`/pedidos/farmacia/${id_farmacia}`)
             setPedidos(response.data)
         } catch (error) {
+            if (error.response?.status === 404) {
+                setPedidos([])
+                return
+            }
             alert(`Não foi possível buscar os pedidos: ${error}`)
         }
     }
@@ -39,7 +43,7 @@ function PedidosLoja() {
             content: (
                 <div>
                     {concluidos.length === 0 ? (
-                        <p>Nenhum pedido concluído.</p>
+                        <p className='p-5'>Nenhum pedido concluído.</p>
                     ) : (
                         concluidos.map((pedido) => (
                             <PedidoComponent
@@ -62,7 +66,7 @@ function PedidosLoja() {
             content: (
                 <div>
                     {pendentes.length === 0 ? (
-                        <p>Nenhum pedido pendente.</p>
+                        <p className='p-5'>Nenhum pedido pendente.</p>
                     ) : (
                         pendentes.map((pedido) => (
                             <PedidoComponent

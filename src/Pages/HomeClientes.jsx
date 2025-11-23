@@ -8,7 +8,7 @@ import GenericContainer from '../Components/Containers'
 import { PrimaryButton, SecondaryDangerButton } from '../Components/Buttons' 
 
 // Imports do FontAwesome
-import { faSignOut } from '@fortawesome/free-solid-svg-icons'
+import { faSignOut, faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // Import da sua instância do Axios
@@ -16,11 +16,17 @@ import api from '../services/api'
 //
 // Componente ProductContainer (Atualizado para receber 'produto' e formatar preço)
 //
-const ProductContainer = ({ produto, className, onComprarClick }) => { // Adicionado onComprarClick
+const ProductContainer = ({ produto, className, onComprarClick }) => { 
   
-  // Formata o preço (ex: 100 -> 100,00)
   const formatPrice = (price) => {
     return price ? parseFloat(price).toFixed(2).replace('.', ',') : '00,00'
+  }
+
+  // Helper to ensure no reload happens
+  const handleClick = (e) => {
+    e.preventDefault(); // Prevents native browser actions
+    e.stopPropagation(); // Stops event bubbling
+    if (onComprarClick) onComprarClick();
   }
 
   return (
@@ -46,8 +52,9 @@ const ProductContainer = ({ produto, className, onComprarClick }) => { // Adicio
 
       <div className="flex-shrink-0 ml-4">
         <button 
+          type="button" // <--- CRITICAL FIX: Prevents the reload
           className="py-3 px-6 flex items-center justify-center space-x-2 text-white bg-primaryblue hover:bg-blue-600 rounded-lg font-bold transition duration-150"
-          onClick={onComprarClick} // Ação de clique adicionada
+          onClick={handleClick} 
         >
           <span>Comprar</span>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -138,6 +145,13 @@ function HomeClientes() {
         
         <div className='flex items-center justify-between w-full mb-6'>
             <h1 className='font-bold text-2xl'>Olá!</h1>
+            <button 
+                onClick={() => navigate('/configuracoes/clientes')}
+                className="w-10 h-10 rounded-xl border border-blue-200 text-blue-600 bg-white flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 shadow-sm"
+                title="Configurações"
+            >
+                <FontAwesomeIcon icon={faCog} />
+            </button>
             <SecondaryDangerButton
                 className='flex items-center gap-2'
                 onClick={handleLogout}

@@ -1,11 +1,10 @@
-// Imports do React e React Router
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // Imports dos seus componentes
 import { InputField } from '../Components/Inputs'
 import GenericContainer from '../Components/Containers'
-import { PrimaryButton, SecondaryDangerButton } from '../Components/Buttons' 
+import { SecondaryDangerButton } from '../Components/Buttons' 
 
 // Imports do FontAwesome
 import { faSignOut, faCog } from '@fortawesome/free-solid-svg-icons'
@@ -13,8 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // Import da sua instância do Axios
 import api from '../services/api'
+
 //
-// Componente ProductContainer (Atualizado para receber 'produto' e formatar preço)
+// Componente ProductContainer (Mantido igual)
 //
 const ProductContainer = ({ produto, className, onComprarClick }) => { 
   
@@ -22,10 +22,9 @@ const ProductContainer = ({ produto, className, onComprarClick }) => {
     return price ? parseFloat(price).toFixed(2).replace('.', ',') : '00,00'
   }
 
-  // Helper to ensure no reload happens
   const handleClick = (e) => {
-    e.preventDefault(); // Prevents native browser actions
-    e.stopPropagation(); // Stops event bubbling
+    e.preventDefault(); 
+    e.stopPropagation(); 
     if (onComprarClick) onComprarClick();
   }
 
@@ -52,7 +51,7 @@ const ProductContainer = ({ produto, className, onComprarClick }) => {
 
       <div className="flex-shrink-0 ml-4">
         <button 
-          type="button" // <--- CRITICAL FIX: Prevents the reload
+          type="button" 
           className="py-3 px-6 flex items-center justify-center space-x-2 text-white bg-primaryblue hover:bg-blue-600 rounded-lg font-bold transition duration-150"
           onClick={handleClick} 
         >
@@ -67,14 +66,16 @@ const ProductContainer = ({ produto, className, onComprarClick }) => {
 }
 
 //
-// Componente HomeClientes (com busca de dados da API)
+// Componente HomeClientes Principal
 //
 function HomeClientes() {
   
-  const navigate = useNavigate() // Hook de navegação
+  const navigate = useNavigate()
   const [logoutLoading, setLogoutLoading] = useState(false)
 
-  const [produtos, setProdutos] = useState([]) 
+  // 1. Estados atualizados para suportar a busca local
+  const [produtos, setProdutos] = useState([]) // Lista completa (Backup dos dados originais)
+  const [filteredProdutos, setFilteredProdutos] = useState([]) // Lista que será exibida na tela
   const [busca, setBusca] = useState('') 
   const [loading, setLoading] = useState(true) 
   const [error, setError] = useState(null) 
@@ -94,8 +95,10 @@ function HomeClientes() {
         setError(null)
         
         const response = await api.get('/produtos') 
-        
-        setProdutos(response.data || [])
+        const data = response.data || []
+
+        setProdutos(data)
+        setFilteredProdutos(data) // 2. Inicializa a lista filtrada com todos os dados
       } catch (err) {
         console.error("Erro ao buscar produtos:", err)
         setError("Não foi possível carregar os produtos. Tente novamente mais tarde.")
@@ -107,14 +110,32 @@ function HomeClientes() {
     carregarProdutos()
   }, []) 
 
-  
-  const filteredProdutos = produtos.filter(produto => 
-    produto.nome.toLowerCase().includes(busca.toLowerCase())
-  )
+  // 3. Função de busca adaptada (filtragem no frontend)
+  const handleSearch = (e) => {
+    const text = e.target.value;
+    setBusca(text);
+
+    if (text) {
+      const newData = produtos.filter(item => {
+        const itemData = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredProdutos(newData);
+    } else {
+      // Se o campo estiver vazio, restaura a lista completa usando o backup
+      setFilteredProdutos(produtos);
+    }
+  };
 
   const renderProdutos = () => {
     if (loading) {
-      return <p className='text-center text-lg mt-5'>Carregando produtos...</p>
+      return (
+        <div className="flex flex-col items-center justify-center mt-10">
+            <div className="w-10 h-10 border-4 border-gray-200 border-t-primaryblue rounded-full animate-spin"></div>
+            <p className='text-center text-gray-500 mt-3'>Carregando produtos...</p>
+        </div>
+      )
     }
 
     if (error) {
@@ -122,16 +143,16 @@ function HomeClientes() {
     }
 
     if (filteredProdutos.length === 0) {
-      return <p className='text-center text-lg mt-5'>Nenhum produto encontrado.</p>
+      return <p className='text-center text-lg mt-5 text-gray-500'>Nenhum produto encontrado.</p>
     }
 
     return (
-      <div className='flex flex-col gap-4 mt-4'>
+      <div className='flex flex-col gap-4 mt-4 pb-20'>
+        {/* Renderiza a lista filtrada */}
         {filteredProdutos.map(produto => (
           <ProductContainer 
             key={produto._id} 
             produto={produto}
-            // Passa a função de navegação para o componente
             onComprarClick={() => navigate(`/produtos/detalhes/${produto._id}`)}
           /> 
         ))}
@@ -143,33 +164,49 @@ function HomeClientes() {
   return (
     <GenericContainer className='p-5 min-h-screen'> 
         
+        {/* Header da Home */}
         <div className='flex items-center justify-between w-full mb-6'>
-            <h1 className='font-bold text-2xl'>Olá!</h1>
-            <button 
-                onClick={() => navigate('/configuracoes/clientes')}
-                className="w-10 h-10 rounded-xl border border-blue-200 text-blue-600 bg-white flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 shadow-sm"
-                title="Configurações"
-            >
-                <FontAwesomeIcon icon={faCog} />
-            </button>
-            <SecondaryDangerButton
-                className='flex items-center gap-2'
-                onClick={handleLogout}
-                disabled={logoutLoading}
-            >
-                <span>{logoutLoading ? 'Saindo...' : 'Sair'}</span>
-                <FontAwesomeIcon icon={faSignOut} />
-            </SecondaryDangerButton>
+            <div>
+                <h1 className='font-bold text-2xl text-primaryblue'>Olá, Cliente!</h1>
+                <p className="text-xs text-gray-400">Bem-vindo de volta</p>
+            </div>
+            
+            {/* Div com items-center para alinhar os botões verticalmente */}
+            <div className="flex gap-2 items-center">
+                {/* Botão de Configurações */}
+                <button 
+                    onClick={() => navigate('/configuracoes/clientes')}
+                    className="w-10 h-10 rounded-xl border border-blue-200 text-primaryblue bg-white flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 shadow-sm"
+                    title="Configurações"
+                >
+                    <FontAwesomeIcon icon={faCog} />
+                </button>
+
+                {/* CORREÇÃO CRÍTICA: Usando !mt-0 para forçar a remoção da margem padrão */}
+                <SecondaryDangerButton
+                    className='w-10 h-10 flex items-center justify-center p-0 !mt-0'
+                    onClick={handleLogout}
+                    disabled={logoutLoading}
+                    title="Sair"
+                >
+                    <FontAwesomeIcon icon={faSignOut} />
+                </SecondaryDangerButton>
+            </div>
         </div>
         
-        <InputField 
-          labelText='O que busca?' 
-          type='text'
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-        />
-        <PrimaryButton className='font-bold mb-2'>Buscar Produto</PrimaryButton>
+        {/* Barra de Busca com ação de filtragem */}
+        <div className="mb-6 relative">
+            <InputField 
+                labelText='O que você precisa hoje?' 
+                type='text'
+                value={busca}
+                onChange={handleSearch} // Conecta a função de busca
+                placeholder="Digite o nome do remédio..."
+            />
+        </div>
         
+        {/* Lista de Produtos */}
+        <h2 className="font-bold text-lg text-gray-700 mb-2">Produtos Disponíveis</h2>
         {renderProdutos()}
 
     </GenericContainer>

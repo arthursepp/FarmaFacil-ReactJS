@@ -107,6 +107,11 @@ function CadastroLojas() {
       return;
     }
 
+    if (!Object.values(passwordRules).every(Boolean)) {
+      setError('A senha não atende aos requisitos.')
+      return
+    }
+
     setLoading(true);
     try {
       const payload = {
@@ -156,6 +161,14 @@ function CadastroLojas() {
       if (timer) clearTimeout(timer);
     };
   }, [success, navigate]);
+
+  const passwordRules = {
+    length: senha.length >= 12,
+    upper: /[A-Z]/.test(senha),
+    lower: /[a-z]/.test(senha),
+    number: /[0-9]/.test(senha),
+    special: /[!#@$^&*().;?":{}|<>]/.test(senha)
+  }
 
   return (
     <GenericContainer>
@@ -211,6 +224,28 @@ function CadastroLojas() {
             <>
               <InputField labelText='Senha' type='password' value={senha} onChange={(e) => setSenha(e.target.value)} required />
               <InputField labelText='Confirme a senha' type='password' value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} required />
+              <div className="flex flex-col text-sm mt-2">
+                <p className={`${passwordRules.length ? 'text-green-600' : 'text-red-600'}`}>
+                  {passwordRules.length ? '✔' : '✖'} Mínimo de 12 caracteres
+                </p>
+
+                <p className={`${passwordRules.upper ? 'text-green-600' : 'text-red-600'}`}>
+                  {passwordRules.upper ? '✔' : '✖'} Pelo menos uma letra maiúscula
+                </p>
+
+                <p className={`${passwordRules.lower ? 'text-green-600' : 'text-red-600'}`}>
+                  {passwordRules.lower ? '✔' : '✖'} Pelo menos uma letra minúscula
+                </p>
+
+                <p className={`${passwordRules.number ? 'text-green-600' : 'text-red-600'}`}>
+                  {passwordRules.number ? '✔' : '✖'} Pelo menos um número
+                </p>
+
+                <p className={`${passwordRules.special ? 'text-green-600' : 'text-red-600'}`}>
+                  {passwordRules.special ? '✔' : '✖'} Pelo menos um caractere especial (!@#...)
+                </p>
+              </div>
+
             </>
           )}
 

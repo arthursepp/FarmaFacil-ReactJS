@@ -136,8 +136,8 @@ function ConfiguracoesLoja() {
           onClose={() => setShowModal(false)}
           onConfirm={handleConfirmDelete}
           title="Tem certeza que deseja deletar sua conta?"
-          rightBtnClassName="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-          leftBtnClassName="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+          rightBtnClassName="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 cursor-pointer"
+          leftBtnClassName="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
           loading={deleteLoading}
           confirmText={deleteLoading ? 'Carregando...' : 'Sim, deletar'}
           cancelText="Não, voltar"

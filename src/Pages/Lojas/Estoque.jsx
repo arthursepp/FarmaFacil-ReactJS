@@ -133,13 +133,13 @@ function Modal({ isOpen, onClose, onConfirm, title, message, confirmText = "Conf
                 <div className="flex gap-3 justify-end">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition cursor-pointer"
                     >
                         {cancelText}
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition cursor-pointer"
                     >
                         {confirmText}
                     </button>

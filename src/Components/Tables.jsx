@@ -51,7 +51,7 @@ function TabelaEstoque({ dados, onEdit, onDelete }) {
                                     </a>
                                     <a
                                         onClick={() => onDelete(item)}
-                                        className="text-red-600 hover:text-red-800"
+                                        className="text-red-600 hover:text-red-800 cursor-pointer"
                                     >
                                         <FontAwesomeIcon icon={faTrash} />
                                     </a>

@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const api = axios.create({
-    // baseURL: 'https://farmafacil-api-bha3gbeedxbngahq.eastus2-01.azurewebsites.net/', // ! URL AZURE
-    //baseURL: http://localhost:3000 // ! URL LOCAL
+const api = axios.create({    
     baseURL: 'https://api-cadastro-farmacias.onrender.com/', // ! URL RENDER
 })
 

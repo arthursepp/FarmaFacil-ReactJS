@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { PrimaryButton, ReturnButton } from "../../../Components/Buttons"
 import GenericContainer from "../../../Components/Containers"
@@ -32,7 +32,7 @@ function LoginClientes() {
         try {
             // Consumindo o endpoint de login de usuário da sua API
             const response = await api.post('usuarios/auth/login', { email, senha })
-            
+
             // Armazenando o token e o ID do cliente (usuário)
             localStorage.setItem('tokenCliente', response.data.token)
             localStorage.setItem('id_cliente', response.data.userId) // A API retorna 'userId'
@@ -53,7 +53,7 @@ function LoginClientes() {
         } finally {
             setLoading(false)
         }
-    }   
+    }
 
     return (
         <GenericContainer className='p-5'>
@@ -71,17 +71,17 @@ function LoginClientes() {
                     onSubmit={handleLogin} // Adicionado o handler de submit
                 >
                     <SecondaryText text='Login' className='text-center' />
-                    <InputField 
-                        labelText='E-mail' 
-                        type='email' 
-                        required 
+                    <InputField
+                        labelText='E-mail'
+                        type='email'
+                        required
                         value={email} // Conectado ao estado
                         onChange={(e) => setEmail(e.target.value)} // Conectado ao estado
                     />
-                    <InputField 
-                        labelText='Senha' 
-                        type='password' 
-                        required 
+                    <InputField
+                        labelText='Senha'
+                        type='password'
+                        required
                         value={senha} // Conectado ao estado
                         onChange={(e) => setSenha(e.target.value)} // Conectado ao estado
                     />

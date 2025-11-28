@@ -4,7 +4,23 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          [
+            'babel-plugin-istanbul',
+            {
+              include: ['src/**/*'],
+              exclude: ['node_modules', 'test', 'cypress'],
+              extension: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+          ],
+        ],
+      },
+    }),
+    tailwindcss()
+  ],
   base: '/',
   build: {
     outDir: 'dist',
@@ -17,6 +33,7 @@ export default defineConfig({
     }
   },
   server: {
+    host: '127.0.0.1',
     port: 5173,
     strictPort: false,
   },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   MaskCurrency,
   MaskPhone,
@@ -7,12 +7,27 @@ import {
   MaskCNPJ
 } from '../utils/masks';
 
+// Helper to apply masks (Extracts logic out of the component)
+const applyMask = (value, maskType) => {
+  if (!value) return '';
+  const stringValue = value.toString();
+
+  switch (maskType) {
+    case 'currency': return MaskCurrency(stringValue);
+    case 'phone':    return MaskPhone(stringValue);
+    case 'cep':      return MaskCEP(stringValue);
+    case 'cpf':      return MaskCPF(stringValue);
+    case 'cnpj':     return MaskCNPJ(stringValue);
+    default:         return stringValue;
+  }
+};
+
 const MaskedInput = ({
   labelText,
-  labelClassName,
+  labelClassName = '',
   name,
-  inputClassName,
-  divClassName,
+  inputClassName = '',
+  divClassName = '',
   mask,
   value: propValue = '',
   onValueChange,
@@ -20,65 +35,30 @@ const MaskedInput = ({
 }) => {
   const [value, setValue] = useState('');
 
-  // Aplica a máscara ao valor vindo da API (propValue)
+  // Sync propValue to internal state when it changes externally
   useEffect(() => {
-    if (propValue !== undefined && propValue !== null) {
-      let maskedValue = propValue.toString();
-
-      switch (mask) {
-        case 'currency':
-          maskedValue = MaskCurrency(maskedValue);
-          break;
-        case 'phone':
-          maskedValue = MaskPhone(maskedValue);
-          break;
-        case 'cep':
-          maskedValue = MaskCEP(maskedValue);
-          break;
-        case 'cpf':
-          maskedValue = MaskCPF(maskedValue);
-          break;
-        case 'cnpj':
-          maskedValue = MaskCNPJ(maskedValue);
-          break;
-        default:
-          break;
-      }
-
-      setValue(maskedValue);
-    }
+    // Only update if propValue is different to avoid loops
+    // Applying mask immediately to incoming props
+    const masked = applyMask(propValue, mask);
+    setValue(masked);
   }, [propValue, mask]);
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
-    let maskedValue = inputValue;
-
-    switch (mask) {
-      case 'currency':
-        maskedValue = MaskCurrency(inputValue);
-        break;
-      case 'phone':
-        maskedValue = MaskPhone(inputValue);
-        break;
-      case 'cep':
-        maskedValue = MaskCEP(inputValue);
-        break;
-      case 'cpf':
-        maskedValue = MaskCPF(inputValue);
-        break;
-      case 'cnpj':
-        maskedValue = MaskCNPJ(inputValue);
-        break;
-      default:
-        break;
-    }
-
+    
+    // 1. Apply Mask
+    const maskedValue = applyMask(inputValue, mask);
+    
+    // 2. Update Internal State
     setValue(maskedValue);
 
-    // valor limpo sem formatação
+    // 3. Clean Value (Be careful with Currency here depending on backend needs)
     const cleanValue = maskedValue.replace(/\D/g, '');
 
-    if (onValueChange) onValueChange(cleanValue, maskedValue);
+    // 4. Send both back to parent
+    if (onValueChange) {
+      onValueChange(cleanValue, maskedValue);
+    }
   };
 
   return (
@@ -91,64 +71,14 @@ const MaskedInput = ({
       <input
         id={name}
         name={name}
+        {...props} 
         value={value}
         onChange={handleChange}
         className={`
           border-2 
-          border-primaryblue 
-          p-2 
-          rounded-xl 
-          focus:outline-none
-          focus:ring-2
-          focus:ring-primaryblue/50
-          transition-all
-          duration-200
-          ease-in-out
-          ${inputClassName}
-        `}
-        {...props}
-      />
-    </div>
-  );
-};
-
-export const InputField = ({ labelText, labelClassName, name, inputClassName, divClassName, ...props }) => {
-  return (
-    <div className={`flex flex-col gap-2 ${divClassName}`}>
-      <label htmlFor={name} className={`text-xl ${labelClassName}`}>{labelText}</label>
-      <input
-        id={name}
-        className={`
-          border-2 
-          border-primaryblue 
-s         focus:outline-none
-          p-2 
-          rounded-xl
-          focus:ring-2
-          focus:ring-primaryblue/50
-          transition-all
-          duration-200
-          ease-in-out
-          ${inputClassName}
-        `}
-        name={name}
-        {...props}
-      />
-    </div>
-  )
-}
-
-export const TextareaField = ({ labelText, labelClassName, name, inputClassName, divClassName, ...props }) => {
-  return (
-    <div className={`flex flex-col gap-2 ${divClassName}`}>
-      <label htmlFor={name} className={`text-xl ${labelClassName}`}>{labelText}</label>
-      <textarea
-        id={name}
-        className={`
-          border-2 
-          border-primaryblue 
-          Services           p-2 
-          rounded-xl
+          border-primaryblue 
+          p-2 
+          rounded-xl 
           focus:outline-none
           focus:ring-2
           focus:ring-primaryblue/50
@@ -157,8 +87,58 @@ export const TextareaField = ({ labelText, labelClassName, name, inputClassName,
           ease-in-out
           ${inputClassName}
         `}
+      />
+    </div>
+  );
+};
+
+export const InputField = ({ labelText, labelClassName = '', name, inputClassName = '', divClassName = '', ...props }) => {
+  return (
+    <div className={`flex flex-col gap-2 ${divClassName}`}>
+      {labelText && <label htmlFor={name} className={`text-xl ${labelClassName}`}>{labelText}</label>}
+      <input
+        id={name}
         name={name}
         {...props}
+        className={`
+          border-2 
+          border-primaryblue 
+          focus:outline-none
+          p-2 
+          rounded-xl
+          focus:ring-2
+          focus:ring-primaryblue/50
+          transition-all
+          duration-200
+          ease-in-out
+          ${inputClassName}
+        `}
+      />
+    </div>
+  )
+}
+
+export const TextareaField = ({ labelText, labelClassName = '', name, inputClassName = '', divClassName = '', ...props }) => {
+  return (
+    <div className={`flex flex-col gap-2 ${divClassName}`}>
+      {labelText && <label htmlFor={name} className={`text-xl ${labelClassName}`}>{labelText}</label>}
+      <textarea
+        id={name}
+        name={name}
+        {...props}
+        className={`
+          border-2 
+          border-primaryblue 
+          p-2 
+          rounded-xl
+          focus:outline-none
+          focus:ring-2
+          focus:ring-primaryblue/50
+          transition-all
+          duration-200
+          ease-in-out
+          ${inputClassName}
+        `}
       ></textarea>
     </div>
   )

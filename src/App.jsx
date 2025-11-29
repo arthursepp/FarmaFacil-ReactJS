@@ -3,6 +3,7 @@ import Landing from './Pages/Landing.jsx'
 import HomeClientes from './Pages/HomeClientes.jsx'
 import CadastroClientes from './Pages/auth/Clientes/CadastroClientes.jsx'
 import LoginClientes from './Pages/auth/Clientes/LoginClientes.jsx'
+import ConfiguracoesCliente from './Pages/Clientes/ConfiguracoesCliente.jsx'
 
 import Detalhes from './Pages/Produtos/Detalhes.jsx'
 import FinalizarCompra from './Pages/Produtos/FinalizarCompra.jsx'
@@ -22,19 +23,18 @@ import EditarLoja from './Pages/Lojas/EditarLoja.jsx'
 import DetalhesPedidoLoja from './Pages/Lojas/Pedidos/DetalhesPedidoLoja.jsx'
 
 import { Routes, Route } from 'react-router-dom'
-import { ExclusiveRoute, OrderRoute, ProductRoute, ProtectedRoute, PublicRoute, SmartLanding } from './Components/RoutesComponent.jsx'
+import { ExclusiveRoute, OrderRoute, ProductRoute, PublicRoute, SmartLanding } from './Components/RoutesComponent.jsx'
 
 const App = () => {
-
-  const validator = 'tokenLoja' // Este validador parece ser para Lojas, não Clientes
 
   return (
     <div>
       <Routes>
         <Route path='/' element={<SmartLanding><Landing /></SmartLanding>} />
 
-        {/* Rotas Públicas - Clientes */}
-        {/* Removida a rota duplicada. Esta agora usa seu PublicRoute corretamente. */}
+        {/* --- ROTAS CLIENTES --- */}
+        
+        {/* Login/Cadastro são PublicRoutes (Só entra quem NÃO está logado) */}
         <Route
           path='/login/clientes'
           element={            
@@ -43,25 +43,59 @@ const App = () => {
             </PublicRoute>
           }
         />
-        <Route path='/cadastro/clientes' element={<PublicRoute><CadastroClientes /></PublicRoute>} />
+        <Route 
+            path='/cadastro/clientes' 
+            element={
+                <PublicRoute storageKey={'tokenCliente'} redirectTo='/home/clientes'>
+                    <CadastroClientes />
+                </PublicRoute>
+            } 
+        />
         
         <Route path='/home/clientes' element={          
-          //<ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
-             <HomeClientes />
-          //</ExclusiveRoute>
+             <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+                 <HomeClientes />
+             </ExclusiveRoute>
         } />
 
-        {/* Rotas Produtos*/} 
-        {/* ROTA ATUALIZADA: Agora aceita um ID dinâmico */}
-        <Route path='/produtos/detalhes/:id' element={<PublicRoute><Detalhes /></PublicRoute>} />
+        <Route path='/configuracoes/clientes' element={
+            <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+                <ConfiguracoesCliente />
+            </ExclusiveRoute>
+        } />   
 
-        <Route path='/produtos/finalizarcompra' element={<PublicRoute><FinalizarCompra /></PublicRoute>} />
-        <Route path='/produtos/mensagemfinal' element={<PublicRoute><MensagemFinal /></PublicRoute>} />
-        <Route path='/produtos/pagamento' element={<PublicRoute><Pagamento /></PublicRoute>} />
+        {/* --- ROTAS PRODUTOS (CORREÇÃO AQUI) --- */} 
+        {/* Estas rotas agora são EXCLUSIVAS para quem tem tokenCliente. */}
+        {/* Se você quiser que qualquer um veja, remova o ExclusiveRoute e deixe sem wrapper. */}
 
-        {/* Rotas Públicas - Lojas */}
-        <Route path='/login/lojas' element={<PublicRoute><LoginLojas /></PublicRoute>} />
-        <Route path='/cadastro/lojas' element={<PublicRoute><CadastroLojas /></PublicRoute>} />
+        <Route path='/produtos/detalhes/:id' element={
+            <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+                <Detalhes />
+            </ExclusiveRoute>
+        } />
+
+        <Route path='/produtos/finalizarcompra' element={
+            <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+                <FinalizarCompra />
+            </ExclusiveRoute>
+        } />
+
+        <Route path='/produtos/mensagemfinal' element={
+            <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+                <MensagemFinal />
+            </ExclusiveRoute>
+        } />
+
+        <Route path='/produtos/pagamento' element={
+            <ExclusiveRoute onlyKey='tokenCliente' redirectTo='/login/clientes'>
+                <Pagamento />
+            </ExclusiveRoute>
+        } />
+
+
+        {/* --- ROTAS LOJAS --- */}
+        <Route path='/login/lojas' element={<PublicRoute storageKey={'tokenLoja'} redirectTo='/home/lojas'><LoginLojas /></PublicRoute>} />
+        <Route path='/cadastro/lojas' element={<PublicRoute storageKey={'tokenLoja'} redirectTo='/home/lojas'><CadastroLojas /></PublicRoute>} />
 
         {/* Home Lojas (Protegido) */}
         <Route path='/home/lojas' element={

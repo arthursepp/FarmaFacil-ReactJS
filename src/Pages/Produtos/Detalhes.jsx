@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import GenericContainer from '../../Components/Containers'
 import { ReturnButton, PrimaryButton } from '../../Components/Buttons'
-import api from '../../services/api' // Importe sua instância do API
+import api from '../../services/api' 
 
-// Componente para exibir um item de detalhe (ajuda a organizar)
+// Componente para exibir um item de detalhe
 const DetailItem = ({ label, value }) => (
   <div className='mb-2'>
     <span className='font-semibold text-gray-600'>{label}: </span>
@@ -12,59 +12,36 @@ const DetailItem = ({ label, value }) => (
   </div>
 )
 
-// Componente de Loading Overlay (Estilo "Smooth and Clean" atualizado)
+// Componente de Loading Overlay (Usando Tailwind puro)
 const LoadingOverlay = () => (
-  <>
-    {/* CSS para o novo spinner */}
-    <style>
-      {`
-        .loader {
-          border: 5px solid #f0f0f0; /* Cinza claro */
-          border-top: 5px solid #3b82f6; /* Azul (Tailwind blue-500) */
-          border-radius: 50%;
-          width: 50px;
-          height: 50px;
-          animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}
-    </style>
-    {/* Fundo branco semitransparente com blur */}
-    <div className='fixed inset-0 bg-white bg-opacity-90 flex flex-col justify-center items-center z-50 backdrop-blur-sm'>
-      <div className="loader"></div> {/* O novo spinner */}
-      <p className='text-gray-700 text-xl mt-4'>Processando seu pedido...</p>
-    </div>
-  </>
+  <div className='fixed inset-0 bg-white/90 flex flex-col justify-center items-center z-50 backdrop-blur-sm'>
+    {/* Tailwind Spinner */}
+    <div className="w-12 h-12 border-4 border-gray-200 border-t-primaryblue rounded-full animate-spin"></div>
+    <p className='text-gray-700 text-xl mt-4 font-poppins'>Processando seu pedido...</p>
+  </div>
 );
 
-
 const Detalhes = () => {
-  const { id } = useParams() // Pega o :id da URL
+  const { id } = useParams() 
   const navigate = useNavigate()
   
   const [produto, setProduto] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [isRedirecting, setIsRedirecting] = useState(false) // Estado para o loading
+  const [isRedirecting, setIsRedirecting] = useState(false) 
 
-  // Formata o preço
   const formatPrice = (price) => {
     return price ? parseFloat(price).toFixed(2).replace('.', ',') : '00,00'
   }
 
-  // Busca os dados do produto na API assim que o componente carregar
   useEffect(() => {
     const fetchProduto = async () => {
       try {
         setLoading(true)
         setError(null)
+        // Certifique-se que sua API responde corretamente nessa rota
         const response = await api.get(`/produtos/${id}`)
         
-        // A API retorna um objeto { produto: {...} }
         if (response.data && response.data.produto) {
           setProduto(response.data.produto)
         } else {
@@ -81,26 +58,25 @@ const Detalhes = () => {
     if (id) {
       fetchProduto()
     }
-  }, [id]) // Executa sempre que o 'id' da URL mudar
+  }, [id]) 
 
-  // Nova função para lidar com o clique
   const handleFinalizarCompra = () => {
-    setIsRedirecting(true); // Ativa o loading
+    setIsRedirecting(true); 
 
-    // Simula um tempo de processamento
     setTimeout(() => {
-      // Navega para a página de pagamento, passando os dados do produto
-      navigate('/produtos/pagamento', { state: { produto: produto } });
-      // Não é necessário desativar o loading, pois a página irá mudar
-    }, 2000); // 2 segundos de loading
+        // Envia o estado (produto) para a próxima página
+        navigate('/produtos/pagamento', { state: { produto: produto } });
+    }, 2000); 
   }
 
-  // Renderização de Loading e Erro
   if (loading) {
     return (
       <GenericContainer className="p-5">
         <ReturnButton />
-        <p className='text-center text-xl mt-10'>Carregando...</p>
+        <div className="flex flex-col items-center justify-center mt-20">
+            <div className="w-12 h-12 border-4 border-gray-200 border-t-primaryblue rounded-full animate-spin"></div>
+            <p className='text-center text-xl mt-4'>Carregando...</p>
+        </div>
       </GenericContainer>
     )
   }
@@ -114,51 +90,55 @@ const Detalhes = () => {
     )
   }
   
-  // Renderização principal quando o produto é carregado
   return (
     <GenericContainer className="p-5">
-        {/* Mostra o overlay de loading se estiver redirecionando */}
         {isRedirecting && <LoadingOverlay />}
 
         <ReturnButton />
-        <h1 className='font-bold text-3xl text-center my-4'>Detalhes do Produto</h1>
+        <h1 className='font-bold text-3xl text-center my-4 text-primaryblue'>Detalhes do Produto</h1>
         
         {produto && (
-          <div className='max-w-2xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden'>
+          <div className='max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100'>
             
-            {/* Imagem do Produto */}
-            <img 
-              src={produto.imagem_url || "https://via.placeholder.com/600x400"} 
-              alt={produto.nome}
-              className='w-full h-64 object-contain bg-gray-100'
-            />
-            
-            <div className='p-6'>
-              {/* Nome e Preço */}
-              <h2 className='text-3xl font-bold text-blue-600 mb-2'>{produto.nome}</h2>
-              <p className='text-4xl font-light text-green-600 mb-6'>
-                R$ {formatPrice(produto.preco)}
-              </p>
+            <div className='flex flex-col md:flex-row'>
+                {/* Imagem (Esquerda ou Topo) */}
+                <div className='w-full md:w-1/2 p-4 flex items-center justify-center bg-gray-50'>
+                    <img 
+                    src={produto.imagem_url || "https://via.placeholder.com/600x400"} 
+                    alt={produto.nome}
+                    className='max-w-full max-h-80 object-contain mix-blend-multiply'
+                    />
+                </div>
+                
+                {/* Conteúdo (Direita ou Baixo) */}
+                <div className='w-full md:w-1/2 p-8 flex flex-col justify-between'>
+                    <div>
+                        <h2 className='text-3xl font-bold text-gray-800 mb-2'>{produto.nome}</h2>
+                        <span className="inline-block bg-blue-100 text-primaryblue text-sm font-semibold px-3 py-1 rounded-full mb-4">
+                            {produto.farmacia?.nome || 'Farmácia Parceira'}
+                        </span>
+                        
+                        <p className='text-5xl font-bold text-green-600 mb-6'>
+                            R$ {formatPrice(produto.preco)}
+                        </p>
 
-              {/* Informações Detalhadas */}
-              <div className='border-t pt-4'>
-                <DetailItem label="Vendido por" value={produto.farmacia?.nome || 'Não informado'} />
-                <DetailItem label="Nome Químico" value={produto.nome_quimico} />
-                <DetailItem label="Em Estoque" value={produto.quantidade} />
-                <DetailItem label="Validade" value={new Date(produto.validade).toLocaleDateString('pt-BR')} />
-                <DetailItem label="Lote" value={produto.lote} />
-                <DetailItem label="Rótulo (Label)" value={produto.label} />
-              </div>
+                        <div className='space-y-2 bg-gray-50 p-4 rounded-xl'>
+                            <DetailItem label="Nome Químico" value={produto.nome_quimico} />
+                            <DetailItem label="Em Estoque" value={produto.quantidade} />
+                            <DetailItem label="Validade" value={new Date(produto.validade).toLocaleDateString('pt-BR')} />
+                            <DetailItem label="Lote" value={produto.lote} />
+                            <DetailItem label="Rótulo" value={produto.label} />
+                        </div>
+                    </div>
 
-              {/* Botão de Finalizar Compra */}
-              <PrimaryButton 
-                className='w-full text-center mt-6 py-4 text-xl'
-                // Atualiza o onClick para a nova função
-                onClick={handleFinalizarCompra} 
-                disabled={isRedirecting} // Desabilita o botão durante o loading
-              >
-                {isRedirecting ? 'Processando...' : 'Finalizar Compra'}
-              </PrimaryButton>
+                    <PrimaryButton 
+                        className='w-full text-center mt-8 py-4 text-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all'
+                        onClick={handleFinalizarCompra} 
+                        disabled={isRedirecting}
+                    >
+                        {isRedirecting ? 'Processando...' : 'Comprar Agora'}
+                    </PrimaryButton>
+                </div>
             </div>
           </div>
         )}
@@ -167,4 +147,3 @@ const Detalhes = () => {
 }
 
 export default Detalhes
-

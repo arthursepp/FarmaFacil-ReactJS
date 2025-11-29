@@ -93,9 +93,13 @@ function DetalhesPedido() {
                 key={item._id}
                 nomeItem={
                   <>
-                    <span className="font-bold">{item.product.nome}</span>
+                    <span className="font-bold">
+                      {item.product ? item.product.nome : 'Produto indisponível'}
+                    </span>
                     <span> - Quantidade: {item.quantidade}</span>
-                    <span> - Preço: R$ {item.product.preco}</span>
+                    <span>
+                      {item.product ? ` - Preço: R$ ${item.product.preco}` : ''}
+                    </span>
                   </>
                 }
                 isFirst={index === 0}
@@ -110,7 +114,7 @@ function DetalhesPedido() {
           </div>
         </CardContainer>
       </GenericContainer>
-      <Footer type={'loja'} />
+      <Footer type={'loja'} className='fixed' />
     </>
   )
 }

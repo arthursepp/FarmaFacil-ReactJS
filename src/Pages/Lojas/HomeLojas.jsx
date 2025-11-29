@@ -43,10 +43,11 @@ function HomeLojas() {
     setPendentes(pedidos.filter((p) => p.status === 'Pendente'))
   }, [pedidos])
 
-  const produtoMenorQtd = estoque.length > 0 ? estoque.reduce(
-    (min, item) => item.quantidade < min.quantidade ?
-      item : min, estoque[0]
-  ) : null;
+const produtoMenorQtd = (() => {
+    if (estoque.length === 0) return null;
+    const minQtd = Math.min(...estoque.map(p => p.quantidade));
+    return estoque.find(p => p.quantidade === minQtd) || null; // primeiro com menor qtd
+  })();
 
   return (
     <>
